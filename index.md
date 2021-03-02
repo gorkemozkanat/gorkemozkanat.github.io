@@ -17,7 +17,7 @@ $ hydra -L UserList.txt -P /usr/share/wordlists/rockyou.txt 192.168.44.129 -t 20
 
 ```
 
-![Branching](https://github.com/gorkemozkanat/Typhoon/blob/main/images/2.png)
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/2.png)
 
 Text can be **bold**, _italic_, or ~~strikethrough~~.
 
