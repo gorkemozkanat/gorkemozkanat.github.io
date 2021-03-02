@@ -1,8 +1,6 @@
 ---
 layout: default
 ---
-[Link to another page](./ctf/typhoon.html).
-
 # NMAP Çıktısı
 
 ![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/1.png)
