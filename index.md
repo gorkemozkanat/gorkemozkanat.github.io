@@ -1,8 +1,23 @@
 ---
 layout: default
 ---
+# NMAP Çıktısı
+
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/1.png)
+
+ftp'ye baktığımda herhangi bir zafiyet bulamadım. Anonymous olarak giriş yapılabiliyordu fakat faydalı bir şey yoktu.
 
 
+# SSH 
+
+SSH'a Hydra yardımı ile Brute Force uygulayarak olası bir kullanıcı adı ve parolası bulmaya çalıştım.
+
+```bash
+$ hydra -L UserList.txt -P /usr/share/wordlists/rockyou.txt 192.168.44.129 -t 20 -V ssh
+
+```
+
+![Branching](https://github.com/gorkemozkanat/Typhoon/blob/main/images/2.png)
 
 Text can be **bold**, _italic_, or ~~strikethrough~~.
 
@@ -101,8 +116,8 @@ end
 ### Large image
 
 ![Branching](https://guides.github.com/activities/hello-world/branching.png)
-![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/1.png)
-![Branching](https://github.com/gorkemozkanat/gorkemozkanat.github.io/blob/master/assets/images/1.png)
+
+
 
 
 ### Definition lists can be used with HTML syntax.
