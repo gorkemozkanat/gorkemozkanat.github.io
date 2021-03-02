@@ -163,7 +163,7 @@ Başarılı bir şekilde root oldum ve /root dizinindeki flag'i okudum.
 ![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/lastflag.png)
 
 
-### Teşekkürler, Başka Makinelerda Görüşmek Üzere.
+### Teşekkürler, Başka Makinelerde Görüşmek Üzere.
 
 
 
