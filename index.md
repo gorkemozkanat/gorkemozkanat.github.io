@@ -154,9 +154,8 @@ Web shell dosyası içerisinde kendi ip mi ve kendim belirlediğim portu yazdım
 
 ![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/22.png)
 
-Belirlediğim portu dinlemeye başladım ve upload gerçekleştikten sonra shell'i aldım.
-
-![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/23.png)
+Belirlediğim portu dinlemeye başladım ve upload gerçekleştikten sonra bize gösterilen endpoint'e giderek shell'i aldım. Daha sonra Shelshock zafiyeti için kullandığım exploit yardımıyla root yetkisine ulaştım.
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/dvwa.png)
 
 # Apache Tomcat/Coyote JPS engine 1.1
 
