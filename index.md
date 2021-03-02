@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-[Link to another page](./typhoon.html).
+[Link to another page](./typhoon.md).
 
 # NMAP Çıktısı
 
