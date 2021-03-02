@@ -154,7 +154,7 @@ uname -a komutu ile sistem bilgilerini çektim ve biraz araştırma yaptığımd
 
 ![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/26.png)
 
-Bulduğum exploit'i kendi makinamdan hedef makinaya wget yardımıyla çekerek gcc ile derleyip çalıştırdım.
+Bulduğum exploit'i kendi makinemden hedef makineye wget yardımıyla çekerek gcc ile derleyip çalıştırdım.
 
 ![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/28.png)
 
@@ -163,7 +163,7 @@ Başarılı bir şekilde root oldum ve /root dizinindeki flag'i okudum.
 ![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/lastflag.png)
 
 
-### Teşekkürler, Başka Makinalarda Görüşmek Üzere.
+### Teşekkürler, Başka Makinelerda Görüşmek Üzere.
 
 
 
