@@ -2,6 +2,8 @@
 layout: default
 ---
 
+
+
 Text can be **bold**, _italic_, or ~~strikethrough~~.
 
 [Link to another page](./another-page.html).
@@ -99,6 +101,7 @@ end
 ### Large image
 
 ![Branching](https://guides.github.com/activities/hello-world/branching.png)
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/Typhoon/main/images/1.png)
 
 
 ### Definition lists can be used with HTML syntax.
