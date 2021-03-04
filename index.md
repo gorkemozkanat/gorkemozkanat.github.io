@@ -2,4 +2,7 @@
 layout: default
 ---
 
-### İletişim İçin ---> [Twitter](https://twitter.com/gorkem_ozkanat)      [GitHub](https://github.com/gorkemozkanat)    
+#### Prisma CSI tarafından hazırlanan Typhoon makinesinin WriteUp'ı için: [Typhoon v1.02 WriteUp](./ctf/typhoon)
+
+
+
