@@ -10,5 +10,6 @@ typhoon:
       path: "ctf/typhoon.md" # an empty string here means all files in the project
     values:
       layout: "typhoon"
+      title: "Görkeeem Jenksiiiink"
       
      
