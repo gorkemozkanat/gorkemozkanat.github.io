@@ -4,7 +4,7 @@ description: PRISMA CSI tarafından hazırlanan Typhoon makinesini çözmeye ça
 show_downloads: false
 google_analytics:
 theme: jekyll-theme-slate
-exclude: [index.md] 
+#exclude: [index.md] 
 ---
 ---
 title: mainpage
