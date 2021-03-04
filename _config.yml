@@ -3,13 +3,3 @@ description: Deneyelim Bakalım
 show_downloads: false
 google_analytics:
 theme: jekyll-theme-slate
-
-default:
-  -
-    scope:
-      path: "ctf/typhoon.md" # an empty string here means all files in the project
-    values:
-      layout: "default"
-      title: "Görkeeem Jenksiiiink"
-      
-     
