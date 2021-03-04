@@ -40,7 +40,7 @@ $ dirb http://192.168.44.129 -o dirb
 
 ```
 
-![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/4.png)
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/4.1.png)
 
 ```bash
 $ nikto -host http://192.168.44.129
@@ -80,7 +80,7 @@ Daha sonra exploit'i çalıştırınca root yetkisini elde ettim.
 
 Web Crawler'ların erişmemesi için robot.txt'ye MongoDB dizini eklendiğini gördüm. Böylece MongoDB dizininden haberim oldu ve dizine gittiğimde bazı yararlı bilgilerle karşılaştım.
 
-robot.txt ---> ![Octocat](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/images/8.png)
+robot.txt ---> ![Octocat](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/8.png)
 
 ![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/9.png)
 
