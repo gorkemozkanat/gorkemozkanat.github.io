@@ -9,7 +9,7 @@ default:
     scope:
       path: "ctf/typhoon.md" # an empty string here means all files in the project
     values:
-      layout: "typhoon"
+      layout: "default"
       title: "Görkeeem Jenksiiiink"
       
      
