@@ -11,4 +11,4 @@ defaults:
       path: "ctf/jetty.md" 
     values:
       layout: "jetty"
-      title: "Görkem Özkanat | Jetty CTF"
+      title: "Görkem Özkanat |s Jetty CTF"
