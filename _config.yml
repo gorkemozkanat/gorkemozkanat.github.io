@@ -10,5 +10,5 @@ defaults:
     scope:
       path: "ctf/jetty.md" 
     values:
-      layout: "typhoon"
-      description: "Jetty CTF"
+      layout: "jetty"
+      title: "Görkem Özkanat | Jetty CTF"

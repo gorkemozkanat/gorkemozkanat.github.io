@@ -1,11 +1,11 @@
 ---
-layout: typhoon
+layout: jetty
 ---
 # NMAP Çıktısı
 
 ![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/jetty/1-nmap.png)
 
-nmap çıktısında sadece 21 ve 80 portlarının açık olduğunu gördüm. 80 portunda bir http servisi çalışıyordu ve beni böyle bir ekran karşıladı.
+nmap çıktısında sadece 21 ve 80 portlarının açık olduğunu gördüm. 80 portunda bir http servisi çalışıyordu ve beni aşağıdaki gibi bir ekran karşıladı.
 
 ![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/jetty/2-anasayfa.png)
 
@@ -21,7 +21,7 @@ ftp servisinde bir şeyler bulmaya çalıştım ve sadece anonymous olarak gireb
 
 ![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/jetty/5-ftp.png)
 
-Dosyaları kendi makineme çektim ve README.txt'yi incelediğimde .zip dosyasında Henry adlı kullanıcının ssh parolasını olduğunu öğrendik fakat şifrelenmişti.
+Dosyaları kendi makineme çektim ve README.txt'yi incelediğimde .zip dosyasında Henry adlı kullanıcının ssh parolasını olduğunu öğrendim fakat şifrelenmişti.
 
 ![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/jetty/6-ReadMe.png)
 
@@ -36,7 +36,7 @@ $ fcrackzip -v -u -D -p /usr/share/wordlists/rockyou.txt sshpass.zip
 
 ![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/jetty/8-sshPass.png)
  
-Elimde artık bir ssh parolası var. Daha önce VulnHub'da makinenin açıklamasında bize şüpheli kişinin kullanıcı adı verilmişti. Çehov'un silahı diyerek bu kullanıcı adı ve bulduğum parolayı denedim.
+Elimde artık bir ssh parolası var. Daha önce VulnHub'da makinenin açıklamasında bize şüpheli kişinin kullanıcı adı verilmişti. Çehov'un tüfeği diyerek bu kullanıcı adı ve bulduğum parolayı denedim.
 
 ![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/jetty/9-sshIptal.png)
 
@@ -50,7 +50,7 @@ Evet gerekli olan ssh portu burda.
 
 ![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/jetty/11-sshgiris.png)
 
-Eğer iznim olmayan komutları çalıştırmaya çalışırsam 3 denemeden sonra girdiğim oturumdan atılıyordum.
+Eğer iznim olmayan komutları yürütmeye çalışırsam 3 denemeden sonra girdiğim oturumdan atılıyordum.
 
 ![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/jetty/12-sshatt%C4%B1.png)
 
@@ -62,11 +62,11 @@ _sudo -l_ komutunu kullanarak find komutunun parola istemeden root yetkileriyle 
 
 ![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/jetty/14-find'e%20bakt%C4%B1k.png)
 
-Ve yetkimi yükselttim.
+Root yetkisine eriştim.
 
 ![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/jetty/15-RootOlduk.png)
 
-Makinenin bizden istediği kanıtı okudum.
+Ve okunması gerekli olan proof.txt'yi okuyarak istenilen kanıtı buldum.
 
 ![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/jetty/16-andProofFlag.png)
 
