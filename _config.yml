@@ -3,3 +3,11 @@ description:
 show_downloads: false
 google_analytics:
 theme: jekyll-theme-slate
+
+
+defaults:
+  -
+    scope:
+      path: "ctf/jetty.md" 
+    values:
+      layout: "typhoon"
