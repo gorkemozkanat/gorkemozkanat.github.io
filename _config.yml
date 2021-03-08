@@ -1,4 +1,4 @@
-title: 
+title: Görkem Özkanat
 description:
 show_downloads: false
 google_analytics:
@@ -11,4 +11,4 @@ defaults:
       path: "ctf/jetty.md" 
     values:
       layout: "jetty"
-      title: "Görkem Özkanat | Jetty CTF"
+      title: "| Jetty CTF"
