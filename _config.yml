@@ -11,3 +11,4 @@ defaults:
       path: "ctf/jetty.md" 
     values:
       layout: "typhoon"
+      description: "Jetty CTF"
