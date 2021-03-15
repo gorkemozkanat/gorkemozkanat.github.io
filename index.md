@@ -7,3 +7,5 @@ layout: default
 
 #### VulnHub Jetty: 1 makinesinin WriteUp'ı için: [Jetty: 1 WriteUp](./ctf/jetty)
 
+#### DVWA makinesinin WriteUp'ı için: [Dvwa WriteUp](./ctf/dvwa)
+
