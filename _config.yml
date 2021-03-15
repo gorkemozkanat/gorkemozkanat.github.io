@@ -13,3 +13,11 @@ defaults:
       layout: "jetty"
       title: "| Jetty CTF"
       
+
+defaults:
+  -
+    scope:
+      path: "ctf/dvwa.md" 
+    values:
+      layout: "dvwa"
+      title: "| DVWA"

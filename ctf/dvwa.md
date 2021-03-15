@@ -2,7 +2,7 @@
 layout: dvwa
 ---
 
-# LOW
+# Low Level
 
 ## Brute Force
 
@@ -108,7 +108,7 @@ Burp suite ile araya girdikten sonra istek üzerinde değişiklilik yaparak XSS 
 
 ![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/33-xss.png)
 
-#MEDİUM
+#MEDİUM Level
 
 ## Brute Force
 
@@ -225,7 +225,9 @@ Script etiketi göründüğünde siliniyordu. İç içe script kullanarak bu dur
 
 ![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/60-xss.png)
 
-![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/61.xss.png)
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/61-xss.png)
+
+### Teşekkürler, Başka Makinelerde Görüşmek Üzere.
 
 
 
