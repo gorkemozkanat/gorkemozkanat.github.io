@@ -108,7 +108,7 @@ Burp suite ile araya girdikten sonra istek üzerinde değişiklilik yaparak XSS 
 
 ![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/33-xss.png)
 
-#MEDİUM Level
+# MEDİUM Level
 
 ## Brute Force
 
