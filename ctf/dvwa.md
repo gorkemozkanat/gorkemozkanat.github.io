@@ -233,73 +233,73 @@ Script etiketi göründüğünde siliniyordu. İç içe script kullanarak bu dur
 
 High levelde token bulunmaktadır. Her denemede token değeri değişmektedir ve token değerini silip denediğimizde hata almaktayım.
 
-görsel
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/1-BruteForce.png)
 
 Her login denemesi ile birlikte yeni bir token oluşturarak istekle birlikte yollamayı denedim. Bu yüzden tokeni algılayıp yeniden oluşturması için burp suite ile bir macro  oluşturdum. Sleep fonksyonu bu senaryoda da bulunmakta.
 
 Project Options --> Sessions 
 
-görsel-2
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/2-Bruteforce.png)
 
 Session Handling Rules kısmında Add dedim ve çıkan pencerede kural ismini belirtip yapacağı eylemi macro olarak gösterdim.
 
-görlsel-3
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/3-Bruteforce.png)
 
 Daha sonra açılan pencerede Add diyerek token bilgisinin olduğu bir isteği gösterdim. 
 
-görsel-5
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/5-Brute.png)
 
 Configure İtem dedikten sonra Add diyerek user_token bilgisini macroya gösterdim.
 
-görsel-6
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/6-UserToken.png)
 
 Session handling action editor sekmesindeki bu kutucuğu doldurdum.
 
-görsel 8
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/8-Brute.png)
 
 Daha sonra Scope kısmında aşağıdaki kutucukların seçili olduğundan emin oldum.
 
-görsel 9
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/9-Brute.png)
 
 Son olarak login işlemini yakalayıp parola kısmını işaretleyerek uygun bir wordlist ile brute force saldırısına başladım.
 
-görsel 10
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/10-Brute.png)
 
 Parolayı buldum.
 
-görsel bruteForceSon
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/11-BruteForceSon.png)
 
 ## Command Injection
 
 Kaynak koda baktığımda bir blacklist hazırlandığını gördüm fakat bir hata vardı. Pipe "|" karakteri blacklist'e eklenirken bir boşluk unutulmuş.
 
-görsel
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/12-COmmand.png)
 
 Bu hatayı kullanarak Command Injection'ı gerçekleştirdim.
 
-görsel
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/13-CommandInjectionSon.png)
 
 ## CSRF
 
 Kaynak kodu incelediğimde her bir parola değişirme talebimde bir token istediğini fark ettim.
 
-görsel
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/14-CSRF.png)
 
 Zafiyeti sömürebilmek id ve password bilgilerini "admin" olarak değiştirecek bir javascript dosyası oluşturdum ve istemcinin ulaşabileceği bir yere koydum. High seviye DOM XSS güvenlik açığını kullanarak id ve pw'yi değiştirdim.
 
-görsel
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/15-CSRF.png)
 
-görsel
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/16-CSRF.png)
 
 Sonuç olarak CSRF zafiyetini de sömürerek id ve pw'yi değiştirdim.
 
-görsel 17
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/17-CSRF.png)
 
 ## LFI
 
 Kaynak kodlara baktığım zaman dosya isminin ya include.php olması gerektiğini yada file ile başlaması gerekliliğini fark ettim.
 
-görsel
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/18-LFI.png)
 
 ```bash
 ?page=file:///../../../../etc/passwd
@@ -308,13 +308,13 @@ görsel
 
 Üsteki yaklaşım ile istenilen gereklilikleri yakalayarak passwd dosyasını okudum.
 
-görsel
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/19-LFI.png)
 
 ## File Upload
 
 Kaynak kodlara baktığımda yüklenecek dosyaların "jpeg", "jpg" veya "png" olması gerektiğini fark ettim. Daha sonra boş bir dosyanın içine php reverse shell komutlarını yazdım fakat komutları yazmadan önce kontrolden geçmesi adına GIF98 yazdım ve shell.jpeg olarak kaydettim. Sisteme yüklemeyi gerçekleştirdim.
 
-görsel
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/21-Fileupload.png)
 
 Hedef sistemde reverse shell kodları mevcut fakat kullanabilmek için .jpeg uzantısından php uzantısına çevirmem gerekiyor daha önce kullandığım command injection zafiyetinden yararlanarak dosya ismini ve uzantısını değiştirdim.
  
@@ -324,11 +324,11 @@ Hedef sistemde reverse shell kodları mevcut fakat kullanabilmek için .jpeg uza
 ```
 Daha sonra 4444 portunu dinlemeye bırakarak reverse shell'in yüklendiği yere gittim ve shell aldım.
 
-görsel
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/22-FileUploadSon.png)
 
 ## SQLi
 
-görsel
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/23-SQli.png)
 
 ## SQLi Blind
 
@@ -338,7 +338,7 @@ Tarayıcıdan PHPSESSID aldıktan sonra sırasıyla ilerledim. İlk olarak verit
 sqlmap -u http://192.168.44.129/dvwa/vulnerabilities/sqli_blind/# --cookie="security=high; PHPSESSID=ovq8gbpmclqfmn6k4us3r67ij5" --data="id=1&Submit=Submit00" --dbs  
 ```
 
-görsel
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/24-SqliBlind.png)
 
 
 Daha sonra tablo isimlerini
@@ -347,7 +347,7 @@ Daha sonra tablo isimlerini
 sqlmap -u http://192.168.44.129/dvwa/vulnerabilities/sqli_blind/# --cookie="security=high; PHPSESSID=ovq8gbpmclqfmn6k4us3r67ij5" --data="id=1&Submit=Submit00" -D dvwa --tables  
 ```
 
-Görsel
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/25-Sqlblind.png)
 
 
 Sütun isimlerini aldım
@@ -356,7 +356,7 @@ Sütun isimlerini aldım
 sqlmap -u http://192.168.44.129/dvwa/vulnerabilities/sqli_blind/# --cookie="security=high; PHPSESSID=ovq8gbpmclqfmn6k4us3r67ij5" --data="id=1&Submit=Submit00" -D dvwa -T users --columns
 ```
 
-görsel
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/26-Sqlblind.png)
 
 Son olarak veritabanındaki kullanıcı adı şifrelerini aldım.
 
@@ -364,25 +364,25 @@ Son olarak veritabanındaki kullanıcı adı şifrelerini aldım.
 sqlmap -u http://192.168.44.129/dvwa/vulnerabilities/sqli_blind/# --cookie="security=high; PHPSESSID=ovq8gbpmclqfmn6k4us3r67ij5" --data="id=1&Submit=Submit00" -D dvwa -T users -C users user,password --dump
 ```
 
-görsel
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/27-Sqliblind.png)
 
 ## XSS (DOM)
 
 Kaynak kodu incelediğimde girdi 4 değerden biri değilse eğer default olarak İngilizceye ayarlıyor. Hiç dokunmadan atlatılabiliyor.
 
-görsel
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/28-XssDom.png)
 
-görsel
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/29-xssDomSon.png)
 
 ## XSS (Reflected)
 
 Kaynak kod aşağıdaki gibi ve script harfleri kontrol ediliyor.
 
-görsel
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/31-XssReflected.png)
 
 script filtrelenmiş olabilir fakat farklı yollarla alert çıktısı alabiliyorum.
 
-görsel
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/32-xssreflected.png)
 
 ## XSS (Stored)
 
@@ -392,7 +392,7 @@ Kaynak kodu incelediğimde yine mesaj kısmında script kısıtlaması olduğunu
 <img src=x onerror="alert(1)">
 ```
 
-görsel
+![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/33.1-xssStored.png)
 
 
 
