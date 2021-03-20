@@ -44,7 +44,7 @@ Herhangi bir ayıklama olmadığından dosyalar-dizinler arasında rahatça geze
 
 ![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/13-fileinc.png)
 
-![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/14-fileinc.png)
+
 
 ## File Upload
 
