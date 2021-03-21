@@ -17,7 +17,7 @@ defaults:
 defaults:
   -
     scope:
-      path: "ctf/dvwa.md" 
+      path: "ctf/dvwa.html" 
     values:
       layout: "dvwa"
       title: "| DVWA"

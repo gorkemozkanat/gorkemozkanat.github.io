@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,maximum-scale=2">
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>DVWA | Görkem Özkanat</title>
+<meta name="generator" content="Jekyll v4.2.0" />
+<meta property="og:title" content="DVWA" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:site_name" content="Görkem Özkanat" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="DVWA" />
+<script type="application/ld+json">
+{"@type":"WebPage","url":"/ctf/dvwa.html","headline":"DVWA","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          
+
+          <h1 id="project_title">DVWA Low-Medium</h1>
+          <h2 id="project_tagline">Keyifli Okumalar.</h2>
+	  <h4 id=""><a href="./../index.html">Anasayfa</a></h4>
+
+          
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+	<p><em>14 Mart 2021 tarihinde Görkem Özkanat tarafından hazırlanmıştır.  <a href="https://github.com/gorkemozkanat">GitHub</a> <a href="https://twitter.com/gorkem_ozkanat">Twitter</a></em></p>
+	<p><a href="#low-level">Low Level</a><a href="#MEDİUM Level">MEDİUM Level</a><a href="#Impossible Level">Impossible Level</a></p>
+
+<a name="Low Level"></a>
+
+<h1 id="low-level">Low Level</h1>
+
+<h2 id="brute-force">Brute Force</h2>
+
+<p>Brute Force kısmına gelince bizi böyle bir ekran karşılamaktadır.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/1-Brute.png" alt="Branching" /></p>
+
+<p>Burp suite ile araya girerek username ve password’e Brute Force uygulayarak id ve pw bulunmaktadır.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/2-brute.png" alt="Branching" /></p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/5-brute.png" alt="Branching" /></p>
+
+<h2 id="command-injection">Command Injection</h2>
+
+<p>Command Injection kısmında bizden ping atmak için bir ip istemektedir. Alınan ip herhangi bir kontrolden geçmeden doğrudan çalıştırıldığından istenilen komut eklenilerek bu zafiyet sömürülebilir.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/7-command.png" alt="Branching" /></p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/8-command.png" alt="Branching" /></p>
+
+<h2 id="csrf">CSRF</h2>
+
+<p>Get request’inde cookie bilgileriyle PHPSSESID taşındığını gördüm. CSRF için çok elverişli.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/9-csrf.png" alt="Branching" /></p>
+
+<p>İçeriği aşağıdaki gibi olan bir zararlı web sitesine giriş yapıldığında resmi kullanıcının haberi olmadan kullanıcının şifresi değiştirilir.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/11-csrf.png" alt="Branching" /></p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/12-csrf.png" alt="Branching" /></p>
+
+<p>Zararlı içerik barındıran web siteyi ziyaret ettikten sonra hedeflenen kullanıcı sadece “hileliPassword” ile giriş yapabilmektedir.</p>
+
+<h1 id="lfi">LFI</h1>
+
+<p>Herhangi bir ayıklama olmadığından dosyalar-dizinler arasında rahatça gezebildim.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/13-fileinc.png" alt="Branching" /></p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/14-fileinc.png" alt="Branching" /></p>
+
+<h2 id="file-upload">File Upload</h2>
+
+<p>File Upload sekmesine geldiğimde benden bir görsel seçmemi istiyor daha sonra Upload butonu yardımıyla sisteme yükleyebiliyorum.</p>
+
+<p>Bu sekmeyi reverse shell alabilmek için kullanıcam. Reverse Shell’in gerekli ayarlarını yaptıktan sonra sisteme yükledim</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/15-fileUpload.png" alt="Branching" /></p>
+
+<p>Daha sonra dosyanın yüklendiği end-point’e giderken 4444 portunu dinliyordum ve reverse shell aldım.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/16-fileUpload.png" alt="Branching" /></p>
+
+<h2 id="sqli">SQLi</h2>
+
+<p>ıd ile sorgulattığım zaman kullanıcının adını soy adını aldığım bir sistemle karşılaştım.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/17-SQLi.png" alt="Branching" /></p>
+
+<p>3’’ denediğimde sonuç aldığım zaman arka tarafta iyi bir input kontrolü olmadını fark ettim.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/18-SQLi.png" alt="Branching" /></p>
+
+<p>Daha sonra gerekli payload ile veritabanından isim ve soy isimleri alabildim.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/19-SQLi.png" alt="Branching" /></p>
+
+<h2 id="sqli-blind">SQLi (Blind)</h2>
+
+<p>User ID olarak 3 girdiğim zaman ıd=3’e karşılık gelen bir kullanıcı olduğu bildirimini aldım.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/20-SQLiblind.png" alt="Branching" /></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>5<span class="s1">' AND ascii(substring((select schema_name from information_schema.schemata limit 0,1),1,!)) &gt;= 90 #
+
+</span></code></pre></div></div>
+<p>Ascii tablosunun da yardımıyla harf harf kazıyarak veritabanı isimlerini buldum daha sonra veritabanındaki tabloları en son olarak da kullanıcı adı ve paroları elegeçirebildim.</p>
+
+<h2 id="xss-dom">XSS (DOM)</h2>
+
+<p>Sayfanın kaynak kodlarını incelediğimde seçilen değerlerin script olarak yansıtıldığını gördüm ve kendi scriptimi yazdım.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/29-xss.png" alt="Branching" /></p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/30-xss.png" alt="Branching" /></p>
+
+<h1 id="xss-reflected">XSS Reflected</h1>
+
+<p>Kullanıcıdan aldığı değeri dinamik olarak geri web sitesinde göstermeye çalışırken oluşan zafiyet yararlandım.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/31-xss.png" alt="Branching" /></p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/31.1-xss.png" alt="Branching" /></p>
+
+<h2 id="xss-stored">XSS Stored</h2>
+
+<p>Burp suite ile araya girdikten sonra istek üzerinde değişiklilik yaparak XSS zafiyetinden yararlanabildim.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/32-xss.png" alt="Branching" /></p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/33-xss.png" alt="Branching" /></p>
+
+<a name="MEDİUM Level"></a>
+
+<h1 id="medi̇um-level">MEDİUM Level</h1>
+
+<h2 id="brute-force-1">Brute Force</h2>
+
+<p>Brute force kısmında kaynak kodları incelediğimde sleep(2) fonksiyonu brute force hızından kayıp yaratmak için yazılmıştı. Eğer bir giriş işlemi başarızı olursa bahsi geçen fonksiyondaki zaman kadar beklenmesi gerekiyor bir sonraki giriş teşebbüsü için.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/34-Mbrute.png" alt="Branching" /></p>
+
+<p>Bu yüzden giriş denemeleri arasındaki süreyi bir 2000 ms’den 3000 ms’ye çıkardım.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/35-Mbrute.png" alt="Branching" /></p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/36-Mbrute.png" alt="Branching" /></p>
+
+<h2 id="command-injection-1">Command Injection</h2>
+
+<p>Kaynak kodlar incelendiğinde blacklist de noktalı virgül ve “&amp;&amp;” işaretinin olduğunu gördüm.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/37-Mcommand.png" alt="Branching" /></p>
+
+<p>Fakat benim kullandığım komutlar ve işaretler bahsi geçen blacklist’de yok.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/38-Mcommand.png" alt="Branching" /></p>
+
+<h2 id="csrf-1">CSRF</h2>
+
+<p>Low kısmındaki örneğe ek olarak bir http kontrolü bulunmaktadır.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/39-Mcsrf.png" alt="Branching" /></p>
+
+<p>stripos fonksiyonu ile kaynak sunucunun adresi istekteki HTTP PREFER değerinin içinde olup olmadığı kontrol ediliyor. Eğer istek farklı bir kaynaktan geliyorsa istek değerlendirilmiyor. Fakat isteğin kaynağı “saldırgansunucu/hedefsunucu.html” şeklinde olursa kaynak sunucu HTTP PREFER’in içinde olduğundan bu ayıklamayı atlatabilmektedir.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/40-Mcsrf.png" alt="Branching" /></p>
+
+<h2 id="lfi-1">LFI</h2>
+
+<p>LFI sekmesinde kaynak koda göz attığımda kullanışlı bazı değerlerin ayıklandığını fark ettim.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/41-LFI.png" alt="Branching" /></p>
+
+<p>Fakat onları kullanmadan da kritik bilgilere ulaşılabiliyor.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/42-LFI.png" alt="Branching" /></p>
+
+<h2 id="file-upload-1">File Upload</h2>
+
+<p>Yüklenen dosya formatında sınırlamalar olduğunu fark ettim.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/45-uploadDıkkat.png" alt="Branching" /></p>
+
+<p>Burp suite ile araya girdikten sonra Content-Type’ı php görünümünden jpeg görünümüne çevirdiğimde doğrulamayı atlatabildim ve reverse shell’i başarıyla yükledim.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/46-uploadDıkkat.png" alt="Branching" /></p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/43-upload.png" alt="Branching" /></p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/44-upload.png" alt="Branching" /></p>
+
+<h2 id="sqli-1">SQLi</h2>
+
+<p>mysqli_real_escape_string fonksiyonu inputta sql’in değerli görebileceği herhangi bir karaktere ters slash “" koymaktadır.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/47-sqli.png" alt="Branching" /></p>
+
+<p>Yukarıdaki SQLi engelleme yöntemi çok kullanışlıdır fakat 7. satırda id değeri tırnak kullanılmadan alındığından halen zafiyetlidir. Tırnak koymadan istediğimiz sql komutunu çalıştırabiliriz.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/48-sqli.png" alt="Branching" /></p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/49-sqli.png" alt="Branching" /></p>
+
+<h2 id="sqli-blind-1">SQLi Blind</h2>
+
+<p>Sqlmap kullanarak bilgi almayı denedim.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>sqlmap <span class="nt">-u</span> http://192.168.44.129/dvwa/vulnerabilities/sqli_blind/# <span class="nt">--cookie</span><span class="o">=</span><span class="s2">"security=medium; PHPSESSID=2b67tokvrfiaoup184hoshdhi0"</span> <span class="nt">--data</span><span class="s2">"id=1&amp;Submit=Submit00"</span> <span class="nt">--dbs</span>
+<span class="nv">$ </span>sqlmap <span class="nt">-u</span> http://192.168.44.129/dvwa/vulnerabilities/sqli_blind/# <span class="nt">--cookie</span><span class="o">=</span><span class="s2">"security=medium; PHPSESSID=2b67tokvrfiaoup184hoshdhi0"</span> <span class="nt">--data</span><span class="s2">"id=1&amp;Submit=Submit00"</span> <span class="nt">-D</span> dvwa <span class="nt">--tables</span>
+<span class="nv">$ </span>sqlmap <span class="nt">-u</span> http://192.168.44.129/dvwa/vulnerabilities/sqli_blind/# <span class="nt">--cookie</span><span class="o">=</span><span class="s2">"security=medium; PHPSESSID=2b67tokvrfiaoup184hoshdhi0"</span> <span class="nt">--data</span><span class="s2">"id=1&amp;Submit=Submit00"</span> <span class="nt">-D</span> dvwa <span class="nt">-T</span> <span class="nb">users</span> <span class="nt">--columns</span>
+<span class="nv">$ </span>sqlmap <span class="nt">-u</span> http://192.168.44.129/dvwa/vulnerabilities/sqli_blind/# <span class="nt">--cookie</span><span class="o">=</span><span class="s2">"security=medium; PHPSESSID=2b67tokvrfiaoup184hoshdhi0"</span> <span class="nt">--data</span><span class="s2">"id=1&amp;Submit=Submit00"</span> <span class="nt">-D</span> dvwa <span class="nt">-T</span> <span class="nb">users</span> <span class="nt">-C</span> user,password <span class="nt">--</span> dump
+
+</code></pre></div></div>
+<p>Önce veritabanı isimlerini öğrendim daha sonra veritabanları içindeki tabloları, kullanıcıları en son olarak veritabanındaki değerli verilere eriştim.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/52-blind.png" alt="Branching" /></p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/53-blind.png" alt="Branching" /></p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/54-blind.png" alt="Branching" /></p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/55-blind.png" alt="Branching" /></p>
+
+<h2 id="xss-dom-1">XSS Dom</h2>
+
+<p>Sayfanın kaynak kodlarında default değeri içerisinde script etiketini engelledikleri görülmektedir.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/56-xssdom.png" alt="Branching" /></p>
+
+<p>Gerekli payload’ı default değeri dışında çalıştırdım.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/57-xssdom.png" alt="Branching" /></p>
+
+<h2 id="xss-reflected-1">XSS Reflected</h2>
+
+<p>Kaynak kodunda yine script değerinin engellendiğini gördüm.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/58-reflected.png" alt="Branching" /></p>
+
+<p>Büyük-küçük harflerle oynayarak bunu da atlatabildim.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/59-reflected.png" alt="Branching" /></p>
+
+<h2 id="xss-stored-1">XSS Stored</h2>
+
+<p>Script etiketi göründüğünde siliniyordu. İç içe script kullanarak bu durumu atlattım.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/60-xss.png" alt="Branching" /></p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/61-xss.png" alt="Branching" /></p>
+
+<h1 id="high-level">High Level</h1>
+
+<h2 id="brute-force-2">Brute Force</h2>
+
+<p>High levelde token bulunmaktadır. Her denemede token değeri değişmektedir ve token değerini silip denediğimizde hata almaktayım.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/1-BruteForce.png" alt="Branching" /></p>
+
+<p>Her login denemesi ile birlikte yeni bir token oluşturarak istekle birlikte yollamayı denedim. Bu yüzden tokeni algılayıp yeniden oluşturması için burp suite ile bir macro  oluşturdum. Sleep fonksyonu bu senaryoda da bulunmakta.</p>
+
+<p>Project Options –&gt; Sessions</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/2-Bruteforce.png" alt="Branching" /></p>
+
+<p>Session Handling Rules kısmında Add dedim ve çıkan pencerede kural ismini belirtip yapacağı eylemi macro olarak gösterdim.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/3-Bruteforce.png" alt="Branching" /></p>
+
+<p>Daha sonra açılan pencerede Add diyerek token bilgisinin olduğu bir isteği gösterdim.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/5-Brute.png" alt="Branching" /></p>
+
+<p>Configure İtem dedikten sonra Add diyerek user_token bilgisini macroya gösterdim.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/6-UserToken.png" alt="Branching" /></p>
+
+<p>Session handling action editor sekmesindeki bu kutucuğu doldurdum.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/8-Brute.png" alt="Branching" /></p>
+
+<p>Daha sonra Scope kısmında aşağıdaki kutucukların seçili olduğundan emin oldum.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/9-Brute.png" alt="Branching" /></p>
+
+<p>Son olarak login işlemini yakalayıp parola kısmını işaretleyerek uygun bir wordlist ile brute force saldırısına başladım.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/10-Brute.png" alt="Branching" /></p>
+
+<p>Parolayı buldum.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/11-BruteForceSon.png" alt="Branching" /></p>
+
+<h2 id="command-injection-2">Command Injection</h2>
+
+<p>Kaynak koda baktığımda bir blacklist hazırlandığını gördüm fakat bir hata vardı. Pipe karakteri blacklist’e eklenirken bir boşluk unutulmuş.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/12-COmmand.png" alt="Branching" /></p>
+
+<p>Bu hatayı kullanarak Command Injection’ı gerçekleştirdim.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/13-CommandInjectionSon.png" alt="Branching" /></p>
+
+<h2 id="csrf-2">CSRF</h2>
+
+<p>Kaynak kodu incelediğimde her bir parola değişirme talebimde bir token istediğini fark ettim.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/14-CSRF.png" alt="Branching" /></p>
+
+<p>Zafiyeti sömürebilmek id ve password bilgilerini “admin” olarak değiştirecek bir javascript dosyası oluşturdum ve istemcinin ulaşabileceği bir yere koydum. High seviye DOM XSS güvenlik açığını kullanarak id ve pw’yi değiştirdim.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/15-CSRF.png" alt="Branching" /></p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/16-CSRF.png" alt="Branching" /></p>
+
+<p>Sonuç olarak CSRF zafiyetini de sömürerek id ve pw’yi değiştirdim.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/17-CSRF.png" alt="Branching" /></p>
+
+<h2 id="lfi-2">LFI</h2>
+
+<p>Kaynak kodlara baktığım zaman dosya isminin ya include.php olması gerektiğini yada file ile başlaması gerekliliğini fark ettim.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/18-LFI.png" alt="Branching" /></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>?page<span class="o">=</span>file:///../../../../etc/passwd
+
+</code></pre></div></div>
+
+<p>Üsteki yaklaşım ile istenilen gereklilikleri yakalayarak passwd dosyasını okudum.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/19-LFI.png" alt="Branching" /></p>
+
+<h2 id="file-upload-2">File Upload</h2>
+
+<p>Kaynak kodlara baktığımda yüklenecek dosyaların “jpeg”, “jpg” veya “png” olması gerektiğini fark ettim. Daha sonra boş bir dosyanın içine php reverse shell komutlarını yazdım fakat komutları yazmadan önce kontrolden geçmesi adına GIF98 yazdım ve shell.jpeg olarak kaydettim. Sisteme yüklemeyi gerçekleştirdim.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/21-Fileupload.png" alt="Branching" /></p>
+
+<p>Hedef sistemde reverse shell kodları mevcut fakat kullanabilmek için .jpeg uzantısından php uzantısına çevirmem gerekiyor daha önce kullandığım command injection zafiyetinden yararlanarak dosya ismini ve uzantısını değiştirdim.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1|mv /var/www/html/dvwa/hackable/uploads/shell.jpeg /var/www/html/dvwa/hackable/uploads/exploit.php
+
+</code></pre></div></div>
+<p>Daha sonra 4444 portunu dinlemeye bırakarak reverse shell’in yüklendiği yere gittim ve shell aldım.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/22-FileUploadSon.png" alt="Branching" /></p>
+
+<h2 id="sqli-2">SQLi</h2>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/23-SQli.png" alt="Branching" /></p>
+
+<h2 id="sqli-blind-2">SQLi Blind</h2>
+
+<p>Tarayıcıdan PHPSESSID aldıktan sonra sırasıyla ilerledim. İlk olarak veritabanı isimlerini aldım</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sqlmap <span class="nt">-u</span> http://192.168.44.129/dvwa/vulnerabilities/sqli_blind/# <span class="nt">--cookie</span><span class="o">=</span><span class="s2">"security=high; PHPSESSID=ovq8gbpmclqfmn6k4us3r67ij5"</span> <span class="nt">--data</span><span class="o">=</span><span class="s2">"id=1&amp;Submit=Submit00"</span> <span class="nt">--dbs</span>  
+</code></pre></div></div>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/24-SqliBlind.png" alt="Branching" /></p>
+
+<p>Daha sonra tablo isimlerini</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sqlmap <span class="nt">-u</span> http://192.168.44.129/dvwa/vulnerabilities/sqli_blind/# <span class="nt">--cookie</span><span class="o">=</span><span class="s2">"security=high; PHPSESSID=ovq8gbpmclqfmn6k4us3r67ij5"</span> <span class="nt">--data</span><span class="o">=</span><span class="s2">"id=1&amp;Submit=Submit00"</span> <span class="nt">-D</span> dvwa <span class="nt">--tables</span>  
+</code></pre></div></div>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/25-Sqlblind.png" alt="Branching" /></p>
+
+<p>Sütun isimlerini aldım</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sqlmap <span class="nt">-u</span> http://192.168.44.129/dvwa/vulnerabilities/sqli_blind/# <span class="nt">--cookie</span><span class="o">=</span><span class="s2">"security=high; PHPSESSID=ovq8gbpmclqfmn6k4us3r67ij5"</span> <span class="nt">--data</span><span class="o">=</span><span class="s2">"id=1&amp;Submit=Submit00"</span> <span class="nt">-D</span> dvwa <span class="nt">-T</span> <span class="nb">users</span> <span class="nt">--columns</span>
+</code></pre></div></div>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/26-Sqlblind.png" alt="Branching" /></p>
+
+<p>Son olarak veritabanındaki kullanıcı adı şifrelerini aldım.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sqlmap <span class="nt">-u</span> http://192.168.44.129/dvwa/vulnerabilities/sqli_blind/# <span class="nt">--cookie</span><span class="o">=</span><span class="s2">"security=high; PHPSESSID=ovq8gbpmclqfmn6k4us3r67ij5"</span> <span class="nt">--data</span><span class="o">=</span><span class="s2">"id=1&amp;Submit=Submit00"</span> <span class="nt">-D</span> dvwa <span class="nt">-T</span> <span class="nb">users</span> <span class="nt">-C</span> <span class="nb">users </span>user,password <span class="nt">--dump</span>
+</code></pre></div></div>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/27-Sqliblind.png" alt="Branching" /></p>
+
+<h2 id="xss-dom-2">XSS DOM</h2>
+
+<p>Kaynak kodu incelediğimde girdi 4 değerden biri değilse eğer default olarak İngilizceye ayarlıyor. Hiç dokunmadan atlatılabiliyor.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/28-XssDom.png" alt="Branching" /></p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/29-xssDomSon.png" alt="Branching" /></p>
+
+<h2 id="xss-reflected-2">XSS Reflected</h2>
+
+<p>Kaynak kod aşağıdaki gibi ve script harfleri kontrol ediliyor.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/31-XssReflected.png" alt="Branching" /></p>
+
+<p>script filtrelenmiş olabilir fakat farklı yollarla alert çıktısı alabiliyorum.</p>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/32-xssreflected.png" alt="Branching" /></p>
+
+<h2 id="xss-stored-2">XSS Stored</h2>
+
+<p>Kaynak kodu incelediğimde yine mesaj kısmında script kısıtlaması olduğunu fark ettim reflected XSS de kullandığım komut burda da çalışıyor.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;img <span class="nv">src</span><span class="o">=</span>x <span class="nv">onerror</span><span class="o">=</span><span class="s2">"alert(1)"</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/33.1-xssStored.png" alt="Branching" /></p>
+
+<a name="Impossible Level"></a>
+
+<h1 id="impossible-level">Impossible Level</h1>
+
+<h2 id="brute-force-3">Brute Force</h2>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/imp/1-brute.png" alt="Branching" /></p>
+
+<p>Bu güvenlik seviyesinde her başarısız login denemesinde bir sonraki login denemesi için beklenmesi gereken süre artmaktadır. Eğer zaman problemi yoksa bir kaç yöntem ile eninde sonunda parola bulunabilir. Birden fazla kullanıcıya şifre denemesi yaparsak eğer bir kullanıcıyı zorlamadığımız için 15 dakika hapis kalınmaz. Fakat sonuca ulaşmak aylarca vakit alır.</p>
+
+<h2 id="command-injection-3">Command Injection</h2>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/imp/2-Command.png" alt="Branching" /></p>
+
+<p>Kaynak kodunu incelediğimde girdi değeri ip olması gerektiğinde dörder dörder ayırarak integer bir değer olup olmadığını kontrol ediyor. Eğer integer ise tüm değerler tekrar birleştirerek cmd ye yönlendiriyor. Bu validation yaklaşımını atlatmayı henüz bulamadım.</p>
+
+<h2 id="csrf-3">CSRF</h2>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/imp/3-CSRF.png" alt="Branching" /></p>
+
+<p>Kaynak kodu incelediğimde parolayı değiştirmek için eski parolanın da istendiğini ve kontrol edildiğini gördüm, eski parola bilinmeden yeni parola oluşturmak imkansız hale geldi. CSRF saldırılarına karşı başarılı bir önlem uygulanmış.</p>
+
+<h2 id="file-inclusion">File Inclusion</h2>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/imp/4-Fıle.png" alt="Branching" /></p>
+
+<p>Impossible güvenlik seviyesinde File Inclusion saldırılarına karşı en iyi güvenlik yaklaşımlardan biri olan beyaz liste kullanılıyor. Herhangi bir sızma tekniği tespit edemedim.</p>
+
+<h2 id="file-upload-3">File Upload</h2>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/imp/5-FileUpload.png" alt="Branching" /></p>
+
+<p>Impossible güvenlik seviyesinde yüklenen dosyaların isimleri değiştirilmektedir ve CSRF saldırılarına karşı Anti-CSRF tokeni bulunmaktadır. Ayrıca dosya içeri ise çok sık bir şekilde kontrol edildiğinden zararlı yazılım barındıran dosya hedef sisteme yüklenememektedir.</p>
+
+<h2 id="sqli-3">SQLi</h2>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/imp/6-Sqli.png" alt="Branching" /></p>
+
+<p>Impossible güvenlik seviyesi PDO teknolojisini kullanmaktadır. İyi bir şekilde ayıklama yaparak SQLi’a karşı başarılı bir önlem oluşmaktadır. Ek olarak CSRF token bulunduğunda savunma mekanizması bir tık daha artmaktadır.</p>
+
+<h2 id="sqli-blind-3">SQLi Blind</h2>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/imp/7-SqliBlind.png" alt="Branching" /></p>
+
+<p>PDO teknolojisi ile birlikte girdideki hangi parçanın kod hangi parçanın veri olduğu ayırt edilebilmektedir. CSRF token ile güvenlik seviyesi daha da arttırılmıştır.</p>
+
+<h2 id="xss-dom-3">XSS DOM</h2>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/imp/8-xssDom.png" alt="Branching" /></p>
+
+<p>Koruma istemci tarafından yapıldığından bir XSS DOM zafiyeti yoktur.</p>
+
+<h2 id="xss-reflected-3">XSS Reflected</h2>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/imp/9-xssReflected.png" alt="Branching" /></p>
+
+<p>Impossible seviyedeki kaynak kodları incelediğimde htmlspecialchars fonksiyonu daha önceden belirlenmiş karakterleri HTML öğeleri olarak kullanılmasını engelleyerek HTML varlıklarına dönüştürür.</p>
+
+<h2 id="xss-stored-3">XSS Stored</h2>
+
+<p><img src="https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/imp/10-XssStored.png" alt="Branching" /></p>
+
+<p>Kaynak kodlarında hem isim hem de mesaj kısmı sıkı bir şekilde filtrelenmiştir. XSS zafiyeti bulunmamaktadır.</p>
+
+<h3 id="teşekkürler-başka-makinelerde-görüşmek-üzere">Teşekkürler, Başka Makinelerde Görüşmek Üzere.</h3>
+
+
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        
+        <p><a href="https://github.com/gorkemozkanat">GitHub</a>     <a href="https://twitter.com/gorkem_ozkanat">Twitter</a></p>
+      </footer>
+    </div>
+
+    
+  </body>
+</html>
