@@ -271,7 +271,7 @@ Parolayı buldum.
 
 ## Command Injection
 
-Kaynak koda baktığımda bir blacklist hazırlandığını gördüm fakat bir hata vardı. Pipe "|" karakteri blacklist'e eklenirken bir boşluk unutulmuş.
+Kaynak koda baktığımda bir blacklist hazırlandığını gördüm fakat bir hata vardı. Pipe karakteri blacklist'e eklenirken bir boşluk unutulmuş.
 
 ![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/12-COmmand.png)
 
@@ -394,8 +394,67 @@ Kaynak kodu incelediğimde yine mesaj kısmında script kısıtlaması olduğunu
 
 ![Branching](https://raw.githubusercontent.com/gorkemozkanat/gorkemozkanat.github.io/master/assets/images/dvwa/high/33.1-xssStored.png)
 
+# Impossible Level
 
+## Brute Force
 
+görsel1
+
+Bu güvenlik seviyesinde her başarısız login denemesinde bir sonraki login denemesi için beklenmesi gereken süre artmaktadır. Eğer zaman problemi yoksa bir kaç yöntem ile eninde sonunda parola bulunabilir. Birden fazla kullanıcıya şifre denemesi yaparsak eğer bir kullanıcıyı zorlamadığımız için 15 dakika hapis kalınmaz. Fakat sonuca ulaşmak aylarca vakit alır.
+
+## Command Injection
+
+görsel2
+
+Kaynak kodunu incelediğimde girdi değeri ip olması gerektiğinde dörder dörder ayırarak integer bir değer olup olmadığını kontrol ediyor. Eğer integer ise tüm değerler tekrar birleştirerek cmd ye yönlendiriyor. Bu validation yaklaşımını atlatmayı henüz bulamadım.
+
+## CSRF
+
+görsel3
+
+Kaynak kodu incelediğimde parolayı değiştirmek için eski parolanın da istendiğini ve kontrol edildiğini gördüm, eski parola bilinmeden yeni parola oluşturmak imkansız hale geldi. CSRF saldırılarına karşı başarılı bir önlem uygulanmış.
+
+## File Inclusion
+
+görsel4
+
+Impossible güvenlik seviyesinde File Inclusion saldırılarına karşı en iyi güvenlik yaklaşımlardan biri olan beyaz liste kullanılıyor. Herhangi bir sızma tekniği tespit edemedim.
+
+## File Upload
+
+görsel5
+
+Impossible güvenlik seviyesinde yüklenen dosyaların isimleri değiştirilmektedir ve CSRF saldırılarına karşı Anti-CSRF tokeni bulunmaktadır. Ayrıca dosya içeri ise çok sık bir şekilde kontrol edildiğinden zararlı yazılım barındıran dosya hedef sisteme yüklenememektedir. 
+
+## SQLi
+
+görsel6
+
+Impossible güvenlik seviyesi PDO teknolojisini kullanmaktadır. İyi bir şekilde ayıklama yaparak SQLi'a karşı başarılı bir önlem oluşmaktadır. Ek olarak CSRF token bulunduğunda savunma mekanizması bir tık daha artmaktadır.
+
+## SQLi Blind
+
+görsel7
+
+PDO teknolojisi ile birlikte girdideki hangi parçanın kod hangi parçanın veri olduğu ayırt edilebilmektedir. CSRF token ile güvenlik seviyesi daha da arttırılmıştır.
+
+## XSS DOM
+
+görsel8
+
+Koruma istemci tarafından yapıldığından bir XSS DOM zafiyeti yoktur.
+
+## XSS Reflected
+
+görsel9 
+
+Impossible seviyedeki kaynak kodları incelediğimde htmlspecialchars fonksiyonu daha önceden belirlenmiş karakterleri HTML öğeleri olarak kullanılmasını engelleyerek HTML varlıklarına dönüştürür.
+
+## XSS Stored
+
+görsel10
+
+Kaynak kodlarında hem isim hem de mesaj kısmı sıkı bir şekilde filtrelenmiştir. XSS zafiyeti bulunmamaktadır.
 
 
 ### Teşekkürler, Başka Makinelerde Görüşmek Üzere.
