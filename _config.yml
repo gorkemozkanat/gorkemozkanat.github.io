@@ -21,3 +21,11 @@ defaults:
     values:
       layout: "dvwa"
       title: "| DVWA"
+
+defaults:
+  -
+    scope:
+      path: "ctf/hacker101.html" 
+    values:
+      layout: "Hacker101"
+      title: "| Hacker101"
