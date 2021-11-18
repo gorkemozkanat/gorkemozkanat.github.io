@@ -16,10 +16,10 @@ minimal_mistakes_skin    : "dark" # "air", "aqua", "contrast", "dark", "dirt", "
 
 # Site Settings
 locale                   : "en-US"
-title                    : "Gorkem Ozkanat"
+title                    : "Görkem Özkanat"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
-name                     : "Gorkem Ozkanat"
+name                     : "Görkem Özkanat"
 description              : "Deniyoruz Bir Seyler."
 url                      : # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
@@ -94,7 +94,7 @@ analytics:
 
 # Site Author
 author:
-  name             : "Gorkem Ozkanat"
+  name             : "Görkem Özkanat"
   avatar           : "/assets/images/grkm.jpg" # path of avatar image, e.g. 
   bio              : "Hellow"
   location         : "Ankara/Türkiye"
