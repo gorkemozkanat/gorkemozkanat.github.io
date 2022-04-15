@@ -1,9 +1,10 @@
 ---
-title: "LayzAdmin WriteUp"
+title: "TryHackMe LayzAdmin WriteUp"
 header:
  
 categories:
    - CTF
+   - TryHackMe
 tag:
    -TryHackMe
 ---

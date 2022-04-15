@@ -1,9 +1,10 @@
 ---
-title: "TomGhost WriteUp"
+title: "TryHackMe TomGhost WriteUp"
 header:
  
 categories:
    - CTF
+   - TryHackMe
 tag:
    -TryHackMe
 ---

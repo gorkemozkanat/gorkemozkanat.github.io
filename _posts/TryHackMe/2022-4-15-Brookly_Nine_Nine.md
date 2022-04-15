@@ -1,9 +1,10 @@
 ---
-title: "Brookly Nine Nine WriteUp"
+title: "TryHackMe Brookly Nine Nine WriteUp"
 header:
  
 categories:
    - CTF
+   - TryHackMe
 tag:
    -TryHackMe
 ---
