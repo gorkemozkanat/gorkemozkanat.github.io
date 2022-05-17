@@ -9,6 +9,8 @@ tag:
    -TryHackMe
 ---
 
+Selamlar bu yazımda TryHackMe'de bulunan TomGhost makinesinin çözümünden bahsedeceğim. Umarım öğretici bir yazı olur, keyifli okumalar.
+
 ## Nmap 
 
 ![image-center]({{ site.url }}{{ site.baseurl }}/assets/images/TomGhost/1.png){: .align-center}

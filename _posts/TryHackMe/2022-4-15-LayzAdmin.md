@@ -9,6 +9,8 @@ tag:
    -TryHackMe
 ---
 
+Selamlar bu yazımda TryHackMe'de bulunan LayzAdmin makinesinin çözümünden bahsedeceğim. Umarım öğretici bir yazı olur, keyifli okumalar.
+
 ## Nmap
 
 ![image-center]({{ site.url }}{{ site.baseurl }}/assets/images/layzAdmin/nmap.png){: .align-center}
