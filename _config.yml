@@ -20,7 +20,7 @@ title                    : "Görkem Özkanat"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "Görkem Özkanat"
-description              : "Deniyoruz Bir Seyler."
+description              : "Siber Güvenlik."
 url                      : # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
@@ -96,9 +96,9 @@ analytics:
 author:
   name             : "Görkem Özkanat"
   avatar           : "/assets/images/grkm.jpg" # path of avatar image, e.g. 
-  bio              : "Hellow"
+  bio              : "Application Security Engineer"
   location         : "Ankara/Türkiye"
-  email            :
+  email            : "grkemozkanat@gmail.com"
   links:
     #- label: "Email"
     #  icon: "fas fa-fw fa-envelope-square"
@@ -130,7 +130,7 @@ footer:
       # url:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      # url:
+       #url: https://twitter.com/gorkem_ozkanat
     - label: "GitLab"
       icon: "fab fa-fw fa-gitlab"
       # url:
