@@ -77,6 +77,7 @@ Obfuscated işleminden sonra saldırının geri kalanı CL.TE veya TE.CL güvenl
 Front-end bütün body verisini back-end’e göndermektedir(chunked). Fakat back-end GPOST ile başlayan veriyi işlememektedir.(cow)
 
 ![image-center]({{ site.url }}{{ site.baseurl }}/assets/images/PortSwigger/9-HTTP-Request-Smuggling/3/1.png){: .align-center}
+
 Request ikinci defa tekrarlandığında GPOST ile başlayan veriler requestlerin en başında olacağından sunucu GPOST metodu hatası verecektir.
 
 ![image-center]({{ site.url }}{{ site.baseurl }}/assets/images/PortSwigger/9-HTTP-Request-Smuggling/3/2.png){: .align-center}
