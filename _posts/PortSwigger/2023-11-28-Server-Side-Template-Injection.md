@@ -73,7 +73,7 @@ FreeMarker dökümanlarında okuma yaparak hedef işletim sistemi üzerinde mora
 
 ![image-center]({{ site.url }}{{ site.baseurl }}/assets/images/PortSwigger/11-Server-Side-Template-Injection/3/2.png){: .align-center}
 
-![image-center]({{ site.url }}{{ site.baseurl }}/assets/images/PortSwigger/11-Server-Side-Template-Injection/3/4.png){: .align-center}
+![image-center]({{ site.url }}{{ site.baseurl }}/assets/images/PortSwigger/11-Server-Side-Template-Injection/3/3.png){: .align-center}
 
 
 

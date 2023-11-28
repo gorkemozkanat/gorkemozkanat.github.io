@@ -90,7 +90,7 @@ Daha sonrasında wiener kullanıcısı ile OAuth işlemi yaparken token bilgisi 
 
 Request History incelendiğinde “/me” requestinin response’unda adminin apıkey bilgisi bulunmaktadır. Eğer orda adminin değil de wiener kullanıcısının apı bilgisi görünyorsa, requestin Authorization başlığındaki token bilgisi adminin token bilgisi ile değiştirilerek gönderilmelidir.
 
-![image-center]({{ site.url }}{{ site.baseurl }}/assets/images/PortSwigger/21-OAuth-Authentication/4/71.png){: .align-center}
+![image-center]({{ site.url }}{{ site.baseurl }}/assets/images/PortSwigger/21-OAuth-Authentication/4/7.png){: .align-center}
 
 ![image-center]({{ site.url }}{{ site.baseurl }}/assets/images/PortSwigger/21-OAuth-Authentication/4/8.png){: .align-center}
 

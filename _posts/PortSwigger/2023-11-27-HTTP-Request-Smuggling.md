@@ -146,7 +146,7 @@ Bu yüzden bir x= değeri atanarak ikinci defa request gönderildiğinde gelecek
 
 Böylelikle iki adet host değeri olmamaktadır ve Admin panele erişim sağlanmaktadır.
 
-![image-center]({{ site.url }}{{ site.baseurl }}/assets/images/PortSwigger9-HTTP-Request-Smuggling/6/7.png){: .align-center}
+![image-center]({{ site.url }}{{ site.baseurl }}/assets/images/PortSwigger/9-HTTP-Request-Smuggling/6/7.png){: .align-center}
 
 Daha sonra carlos kullanıcısını silecek request hazırlanarak iki defa gönderilmektedir ve carlos kullanıcısı silinmektedir.
 
