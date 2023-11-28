@@ -3,7 +3,7 @@
 title: "Hakkimda"
 layout: single
 permalink: /hakkimda/
-author_profile: true
+author_profile: false
 sidebar:
   title: "Sample Title"
   nav: sidebar-sample
