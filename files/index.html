@@ -1,58 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Files Browser</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>File Explorer</title>
   <style>
-    body { font-family: Arial, sans-serif; background: #1e1e1e; color: #eee; padding: 20px; }
-    a { color: #4fa3ff; text-decoration: none; }
-    ul { list-style: none; padding-left: 20px; }
-    li { margin: 5px 0; }
-    .folder { font-weight: bold; cursor: pointer; }
-    .hidden { display: none; }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: #eee;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      color: #fff;
+      text-align: center;
+    }
+    #search {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      padding: 8px 12px;
+      margin: 4px 0;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+    li:hover {
+      background: #333;
+    }
+    a {
+      color: #4ea1ff;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .folder::before {
+      content: "📁 ";
+    }
+    .file::before {
+      content: "📄 ";
+    }
+    .back {
+      color: #ff7676;
+    }
   </style>
 </head>
 <body>
-  <h2>📂 File Browser</h2>
-  <div id="file-list"></div>
+  <h1>📂 File Explorer</h1>
+  <input type="text" id="search" placeholder="Ara... (dosya/klasör)"/>
+  <ul id="file-list"></ul>
 
   <script>
-    const repoUser = "gorkemozkanat";   // 🔹 senin GitHub username
-    const repoName = "gorkemozkanat.github.io"; // 🔹 repo adı
-    const branch = "master"; // master kullanıyorsan "master" yap
+    const repoUser = "gorkemozkanat";              // senin kullanıcı adın
+    const repoName = "gorkemozkanat.github.io";   // repo adı
+    const branch = "main";                        // branch adı
+    const rootPath = "files";                     // sabit bırakıyoruz
 
-    async function loadFiles(path = "files", container = document.getElementById("file-list")) {
-      const res = await fetch(`https://api.github.com/repos/${repoUser}/${repoName}/contents/${path}?ref=${branch}`);
-      const data = await res.json();
+    let currentPath = rootPath;
 
-      const ul = document.createElement("ul");
-      for (const item of data) {
-        const li = document.createElement("li");
-
-        if (item.type === "dir") {
-          li.innerHTML = `📁 <span class="folder">${item.name}</span>`;
-          const subUl = document.createElement("ul");
-          subUl.classList.add("hidden");
-          li.appendChild(subUl);
-
-          li.querySelector(".folder").onclick = () => {
-            subUl.classList.toggle("hidden");
-            if (!subUl.hasChildNodes()) {
-              loadFiles(item.path, subUl);
-            }
-          };
-        } else {
-          li.innerHTML = `📄 <a href="${item.download_url}" target="_blank">${item.name}</a>`;
-        }
-
-        ul.appendChild(li);
-      }
-
-      container.innerHTML = "";
-      container.appendChild(ul);
+    async function fetchFiles(path) {
+      const url = `https://api.github.com/repos/${repoUser}/${repoName}/contents/${path}?ref=${branch}`;
+      const res = await fetch(url);
+      return await res.json();
     }
 
-    loadFiles();
+    async function renderFiles(path) {
+      currentPath = path;
+      const fileList = document.getElementById("file-list");
+      fileList.innerHTML = "";
+
+      // Geri linki
+      if (path !== rootPath) {
+        const parentPath = path.split("/").slice(0, -1).join("/") || rootPath;
+        const li = document.createElement("li");
+        li.innerHTML = `<a href="#" class="back">⬅️ Geri</a>`;
+        li.onclick = () => renderFiles(parentPath);
+        fileList.appendChild(li);
+      }
+
+      const files = await fetchFiles(path);
+
+      // Klasörleri ve dosyaları ayır
+      const dirs = files.filter(f => f.type === "dir");
+      const docs = files.filter(f => f.type === "file");
+
+      // Önce klasörleri ekle
+      dirs.forEach(file => {
+        const li = document.createElement("li");
+        li.className = "folder";
+        li.innerHTML = `<a href="#">${file.name}</a>`;
+        li.onclick = () => renderFiles(file.path);
+        fileList.appendChild(li);
+      });
+
+      // Sonra dosyaları ekle
+      docs.forEach(file => {
+        const li = document.createElement("li");
+        li.className = "file";
+        li.innerHTML = `<a href="${file.download_url}" target="_blank">${file.name}</a>`;
+        fileList.appendChild(li);
+      });
+    }
+
+    // Arama fonksiyonu
+    document.getElementById("search").addEventListener("input", function() {
+      const term = this.value.toLowerCase();
+      const items = document.querySelectorAll("#file-list li");
+      items.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        item.style.display = text.includes(term) ? "" : "none";
+      });
+    });
+
+    renderFiles(rootPath);
   </script>
 </body>
 </html>
