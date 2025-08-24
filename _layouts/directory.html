@@ -1,41 +1,7 @@
----
-layout: default
----
-
-<h1>Index of {{ page.dir }}</h1>
 <ul>
-  {%- comment -%}
-  1. Alt klasörler
-  {%- endcomment -%}
-  {% assign subdirs = "" | split: "" %}
   {% for file in site.static_files %}
-    {% if file.path contains page.dir %}
-      {% assign parts = file.path | split:"/" %}
-      {% assign folder = parts[1] %}
-      {% if folder != "" and folder != page.dir %}
-        {% unless subdirs contains folder %}
-          {% assign subdirs = subdirs | push: folder %}
-          <li>[DIR] <a href="/{{ folder }}/">{{ folder }}/</a></li>
-        {% endunless %}
-      {% endif %}
-    {% endif %}
-  {% endfor %}
-
-  {%- comment -%}
-  2. TXT dosyaları
-  {%- endcomment -%}
-  {% for file in site.static_files %}
-    {% if file.path contains page.dir and file.extname == ".txt" %}
-      <li>[TXT] <a href="{{ file.path }}">{{ file.name }}</a></li>
-    {% endif %}
-  {% endfor %}
-
-  {%- comment -%}
-  3. Markdown / HTML dosyaları
-  {%- endcomment -%}
-  {% for page in site.pages %}
-    {% if page.path contains page.dir and page.name != "index.md" %}
-      <li>[PAGE] <a href="{{ page.url }}">{{ page.name }}</a></li>
+    {% if file.extname == ".txt" and file.path contains page.dir %}
+      <li><a href="{{ file.path }}">{{ file.name }}</a></li>
     {% endif %}
   {% endfor %}
 </ul>
