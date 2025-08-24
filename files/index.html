@@ -19,7 +19,7 @@
     #search {
       width: 100%;
       padding: 10px;
-      margin-bottom: 15px;
+      margin: 15px 0;
       border-radius: 8px;
       border: none;
       font-size: 16px;
@@ -61,10 +61,10 @@
   <ul id="file-list"></ul>
 
   <script>
-    const repoUser = "gorkemozkanat";              // senin kullanıcı adın
-    const repoName = "gorkemozkanat.github.io";   // repo adı
-    const branch = "main";                        // branch adı
-    const rootPath = "files";                     // sabit bırakıyoruz
+    const repoUser = "gorkemozkanat";              // GitHub kullanıcı adın
+    const repoName = "gorkemozkanat.github.io";   // Repo adı
+    const branch = "main";                        // Branch adı
+    const rootPath = "files";                     // Kökteki "files" klasörü
 
     let currentPath = rootPath;
 
@@ -98,6 +98,7 @@
       dirs.forEach(file => {
         const li = document.createElement("li");
         li.className = "folder";
+        li.dataset.name = file.name.toLowerCase();
         li.innerHTML = `<a href="#">${file.name}</a>`;
         li.onclick = () => renderFiles(file.path);
         fileList.appendChild(li);
@@ -107,18 +108,22 @@
       docs.forEach(file => {
         const li = document.createElement("li");
         li.className = "file";
+        li.dataset.name = file.name.toLowerCase();
         li.innerHTML = `<a href="${file.download_url}" target="_blank">${file.name}</a>`;
         fileList.appendChild(li);
       });
     }
 
-    // Arama fonksiyonu
+    // Arama fonksiyonu (boşken tümünü göster)
     document.getElementById("search").addEventListener("input", function() {
       const term = this.value.toLowerCase();
       const items = document.querySelectorAll("#file-list li");
       items.forEach(item => {
-        const text = item.textContent.toLowerCase();
-        item.style.display = text.includes(term) ? "" : "none";
+        if (!term || (item.dataset.name && item.dataset.name.includes(term))) {
+          item.style.display = "";
+        } else if (!item.classList.contains("back")) {
+          item.style.display = "none";
+        }
       });
     });
 
