@@ -8,7 +8,7 @@ tag:
    -PortSwigger   
 ---
 
-WebSocket’ler, kullanıcı işlemlerini gerçekleştirmek ve hassas bilgileri iletmek de dahil bir çok amaçla kullanılmaktadır. HTTP ile ortaya çıkan hemen hemen her web güvenlik zafiyeti WebSockets işlemleriyle de ortaya çıkabilmektedir. (XSS, CSRF, SQLi, XXE, SSRF)
+TEST-WebSocket’ler, kullanıcı işlemlerini gerçekleştirmek ve hassas bilgileri iletmek de dahil bir çok amaçla kullanılmaktadır. HTTP ile ortaya çıkan hemen hemen her web güvenlik zafiyeti WebSockets işlemleriyle de ortaya çıkabilmektedir. (XSS, CSRF, SQLi, XXE, SSRF)
 
 
 [Lab  1](#lab-1-manipulating-websocket-messages-to-exploit-vulnerabilities){: .btn .btn--danger}{: .text-right}  [Lab 2](#lab-2-manipulating-the-websocket-handshake-to-exploit-vulnerabilities){: .btn .btn--danger}{: .text-center} [Lab 3](#lab-3-cross-site-websocket-hijacking){: .btn .btn--danger} 
