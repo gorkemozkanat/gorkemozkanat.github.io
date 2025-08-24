@@ -2,9 +2,29 @@
 layout: default
 ---
 
-<h1>Index of {{ page.dir }}</h1>
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    margin-top: 1em;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  th {
+    background-color: #f4f4f4 !important;
+    color: #000 !important;
+    cursor: pointer;
+  }
+  tr:nth-child(even) { background-color: #fafafa; }
+  tr:hover { background-color: #f1f1f1; }
+  .dir-row td { font-weight: bold; }
+</style>
 
-<input type="text" id="search" placeholder="Search..." class="search-box">
+<h1>Index of {{ page.dir }}</h1>
 
 <table id="fileTable">
   <thead>
@@ -16,157 +36,74 @@ layout: default
     </tr>
   </thead>
   <tbody>
-    {% assign listed = "" | split: "" %}
-    {% for f in site.static_files %}
-      {% if f.path contains page.dir %}
-        {% assign parts = f.path | split: "/" %}
-        {% assign subdir = parts[1] %}
-        {% if subdir != "" and subdir != page.dir %}
-          {% unless listed contains subdir %}
-            {% assign listed = listed | push: subdir %}
+    {%- assign listed = "" | split: "" -%}
+    {%- for file in site.static_files -%}
+      {%- if file.path contains page.dir -%}
+        {%- assign relpath = file.path | remove_first: page.dir -%}
+        {%- assign parts = relpath | split: "/" -%}
+
+        {%- if parts.size == 1 and parts[0] != "" -%}
+          <!-- Sadece dosya -->
+          <tr>
+            <td>📄 <a href="{{ file.path }}">{{ parts[0] }}</a></td>
+            <td>{{ file.extname | remove: "." | upcase }}</td>
+            <td>
+              {%- if file.size -%}
+                {{ file.size | divided_by: 1024.0 | round: 2 }} KB
+              {%- else -%}
+                -
+              {%- endif -%}
+            </td>
+            <td>
+              {%- if file.modified_time -%}
+                {{ file.modified_time | date: "%Y-%m-%d %H:%M" }}
+              {%- else -%}
+                -
+              {%- endif -%}
+            </td>
+          </tr>
+        {%- elsif parts.size > 1 -%}
+          <!-- Sadece klasörün adını al -->
+          {%- assign subdir = parts[0] -%}
+          {%- unless listed contains subdir -%}
+            {%- assign listed = listed | push: subdir -%}
             <tr class="dir-row">
-              <td>📂 <a href="/{{ subdir }}/">{{ subdir }}/</a></td>
+              <td>📂 <a href="{{ page.dir }}{{ subdir }}/">{{ subdir }}/</a></td>
               <td>Directory</td>
               <td>-</td>
               <td>-</td>
             </tr>
-          {% endunless %}
-        {% endif %}
-      {% endif %}
-    {% endfor %}
+          {%- endunless -%}
+        {%- endif -%}
 
-    {% for file in site.static_files %}
-      {% if file.path contains page.dir %}
-        <tr class="file-row">
-          <td>📄 <a href="{{ file.path }}">{{ file.name }}</a></td>
-          <td>{{ file.extname | remove: "." | upcase }}</td>
-          <td>
-            {% if file.size %}
-              {{ file.size | divided_by: 1024.0 | round: 2 }} KB
-            {% else %}
-              -
-            {% endif %}
-          </td>
-          <td>
-            {% if file.modified_time %}
-              {{ file.modified_time | date: "%Y-%m-%d %H:%M" }}
-            {% else %}
-              -
-            {% endif %}
-          </td>
-        </tr>
-      {% endif %}
-    {% endfor %}
+      {%- endif -%}
+    {%- endfor -%}
   </tbody>
 </table>
 
-<style>
-  /* Genel tablo stilleri */
-  #fileTable {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: sans-serif;
-    table-layout: fixed;
-    word-wrap: break-word;
-  }
-
-  #fileTable th, #fileTable td {
-    padding: 10px 12px;
-    border-bottom: 1px solid #ddd;
-    text-align: left;
-    color: #000 !important;          /* Tema override */
-  }
-
-  #fileTable th {
-    background-color: #f4f4f4 !important;
-    cursor: pointer;
-  }
-
-  #fileTable th:hover {
-    background-color: #e0e0e0 !important;
-  }
-
-  #fileTable tr:hover {
-    background-color: #f0f8ff;
-  }
-
-  #fileTable tr.dir-row td {
-    font-weight: bold;
-  }
-
-  a {
-    text-decoration: none;
-    color: #0366d6;
-  }
-
-  a:hover {
-    text-decoration: underline;
-  }
-
-  /* Arama kutusu stilleri */
-  .search-box {
-    margin-bottom: 15px;
-    padding: 8px;
-    width: 100%;
-    max-width: 300px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-  }
-
-  /* Responsive */
-  @media screen and (max-width: 600px) {
-    #fileTable, #fileTable thead, #fileTable tbody, #fileTable th, #fileTable td, #fileTable tr {
-      display: block;
-    }
-
-    #fileTable tr {
-      margin-bottom: 15px;
-    }
-
-    #fileTable td {
-      text-align: right;
-      padding-left: 50%;
-      position: relative;
-    }
-
-    #fileTable td::before {
-      content: attr(data-label);
-      position: absolute;
-      left: 0;
-      width: 45%;
-      padding-left: 10px;
-      font-weight: bold;
-      text-align: left;
-    }
-
-    #fileTable th {
-      display: none;
-    }
-  }
-</style>
-
 <script>
-  // Search filter
-  document.getElementById("search").addEventListener("keyup", function() {
-    var filter = this.value.toLowerCase();
-    var rows = document.querySelectorAll("#fileTable tbody tr");
-    rows.forEach(row => {
-      row.style.display = row.textContent.toLowerCase().includes(filter) ? "" : "none";
-    });
-  });
-
-  // Sort table
-  function sortTable(n) {
-    var table = document.getElementById("fileTable");
-    var rows = Array.from(table.rows).slice(1);
-    var asc = table.getAttribute("data-sort-dir") !== "asc";
-    rows.sort((a, b) => {
-      var x = a.cells[n].innerText.toLowerCase();
-      var y = b.cells[n].innerText.toLowerCase();
-      if (!isNaN(x) && !isNaN(y)) return asc ? x - y : y - x;
-      return asc ? x.localeCompare(y) : y.localeCompare(x);
-    });
-    rows.forEach(r => table.tBodies[0].appendChild(r));
-    table.setAttribute("data-sort-dir", asc ? "asc" : "desc");
+function sortTable(n) {
+  var table = document.getElementById("fileTable");
+  var rows = table.rows, switching = true, dir = "asc", switchcount = 0;
+  while (switching) {
+    switching = false;
+    for (var i = 1; i < rows.length - 1; i++) {
+      var shouldSwitch = false;
+      var x = rows[i].getElementsByTagName("TD")[n];
+      var y = rows[i + 1].getElementsByTagName("TD")[n];
+      if (dir === "asc" && x.innerText.toLowerCase() > y.innerText.toLowerCase()) {
+        shouldSwitch = true; break;
+      }
+      if (dir === "desc" && x.innerText.toLowerCase() < y.innerText.toLowerCase()) {
+        shouldSwitch = true; break;
+      }
+    }
+    if (shouldSwitch) {
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true; switchcount++;
+    } else if (switchcount === 0 && dir === "asc") {
+      dir = "desc"; switching = true;
+    }
   }
+}
 </script>
