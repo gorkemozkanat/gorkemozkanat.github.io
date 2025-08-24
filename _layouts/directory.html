@@ -4,30 +4,86 @@ layout: default
 
 <h1>Index of {{ page.dir }}</h1>
 
-<ul>
-  {%- comment -%}
-  🔹 Alt klasörleri listele
-  {%- endcomment -%}
-  {% assign listed = "" | split: "" %}
-  {% for f in site.static_files %}
-    {% if f.path contains page.dir %}
-      {% assign parts = f.path | split: "/" %}
-      {% assign subdir = parts[1] %}
-      {% if subdir != "" and subdir != page.dir %}
-        {% unless listed contains subdir %}
-          {% assign listed = listed | push: subdir %}
-          <li>[DIR] <a href="/{{ subdir }}/">{{ subdir }}/</a></li>
-        {% endunless %}
-      {% endif %}
-    {% endif %}
-  {% endfor %}
+<input type="text" id="search" placeholder="Search..." style="margin-bottom:10px; padding:5px; width:250px;">
 
-  {%- comment -%}
-  🔹 Dosyaları listele
-  {%- endcomment -%}
-  {% for file in site.static_files %}
-    {% if file.path contains page.dir %}
-      <li>[FILE] <a href="{{ file.path }}">{{ file.name }}</a></li>
-    {% endif %}
-  {% endfor %}
-</ul>
+<table id="fileTable" border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th onclick="sortTable(0)">Name 🔽</th>
+      <th onclick="sortTable(1)">Type</th>
+      <th onclick="sortTable(2)">Size</th>
+      <th onclick="sortTable(3)">Last Modified</th>
+    </tr>
+  </thead>
+  <tbody>
+    {%- comment -%} Alt klasörler {%- endcomment -%}
+    {% assign listed = "" | split: "" %}
+    {% for f in site.static_files %}
+      {% if f.path contains page.dir %}
+        {% assign parts = f.path | split: "/" %}
+        {% assign subdir = parts[1] %}
+        {% if subdir != "" and subdir != page.dir %}
+          {% unless listed contains subdir %}
+            {% assign listed = listed | push: subdir %}
+            <tr>
+              <td>📂 <a href="/{{ subdir }}/">{{ subdir }}/</a></td>
+              <td>Directory</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+          {% endunless %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+    {%- comment -%} Dosyalar {%- endcomment -%}
+    {% for file in site.static_files %}
+      {% if file.path contains page.dir %}
+        <tr>
+          <td>📄 <a href="{{ file.path }}">{{ file.name }}</a></td>
+          <td>{{ file.extname | remove: "." | upcase }}</td>
+          <td>
+            {% if file.modified_time %}
+              {{ file.size | divided_by: 1024.0 | round: 2 }} KB
+            {% else %}
+              -
+            {% endif %}
+          </td>
+          <td>
+            {% if file.modified_time %}
+              {{ file.modified_time | date: "%Y-%m-%d %H:%M" }}
+            {% else %}
+              -
+            {% endif %}
+          </td>
+        </tr>
+      {% endif %}
+    {% endfor %}
+  </tbody>
+</table>
+
+<script>
+  // 🔍 Search filter
+  document.getElementById("search").addEventListener("keyup", function() {
+    var filter = this.value.toLowerCase();
+    var rows = document.querySelectorAll("#fileTable tbody tr");
+    rows.forEach(row => {
+      row.style.display = row.textContent.toLowerCase().includes(filter) ? "" : "none";
+    });
+  });
+
+  // 🔼🔽 Sort table
+  function sortTable(n) {
+    var table = document.getElementById("fileTable");
+    var rows = Array.from(table.rows).slice(1); // skip header
+    var asc = table.getAttribute("data-sort-dir") !== "asc";
+    rows.sort((a, b) => {
+      var x = a.cells[n].innerText.toLowerCase();
+      var y = b.cells[n].innerText.toLowerCase();
+      if (!isNaN(x) && !isNaN(y)) { return asc ? x - y : y - x; }
+      return asc ? x.localeCompare(y) : y.localeCompare(x);
+    });
+    rows.forEach(r => table.tBodies[0].appendChild(r));
+    table.setAttribute("data-sort-dir", asc ? "asc" : "desc");
+  }
+</script>
