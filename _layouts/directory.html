@@ -1,6 +1,11 @@
+---
+layout: default
+---
+
+<h1>Index of {{ page.dir }}</h1>
 <ul>
   {% for file in site.static_files %}
-    {% if file.extname == ".txt" and file.path contains page.dir %}
+    {% if file.path contains page.dir %}
       <li><a href="{{ file.path }}">{{ file.name }}</a></li>
     {% endif %}
   {% endfor %}
