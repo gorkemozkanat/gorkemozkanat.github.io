@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Files Browser</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #1e1e1e; color: #eee; padding: 20px; }
+    a { color: #4fa3ff; text-decoration: none; }
+    ul { list-style: none; padding-left: 20px; }
+    li { margin: 5px 0; }
+    .folder { font-weight: bold; cursor: pointer; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <h2>📂 File Browser</h2>
+  <div id="file-list"></div>
+
+  <script>
+    const repoUser = "gorkemozkanat";   // 🔹 senin GitHub username
+    const repoName = "gorkemozkanat.github.io"; // 🔹 repo adı
+    const branch = "master"; // master kullanıyorsan "master" yap
+
+    async function loadFiles(path = "files", container = document.getElementById("file-list")) {
+      const res = await fetch(`https://api.github.com/repos/${repoUser}/${repoName}/contents/${path}?ref=${branch}`);
+      const data = await res.json();
+
+      const ul = document.createElement("ul");
+      for (const item of data) {
+        const li = document.createElement("li");
+
+        if (item.type === "dir") {
+          li.innerHTML = `📁 <span class="folder">${item.name}</span>`;
+          const subUl = document.createElement("ul");
+          subUl.classList.add("hidden");
+          li.appendChild(subUl);
+
+          li.querySelector(".folder").onclick = () => {
+            subUl.classList.toggle("hidden");
+            if (!subUl.hasChildNodes()) {
+              loadFiles(item.path, subUl);
+            }
+          };
+        } else {
+          li.innerHTML = `📄 <a href="${item.download_url}" target="_blank">${item.name}</a>`;
+        }
+
+        ul.appendChild(li);
+      }
+
+      container.innerHTML = "";
+      container.appendChild(ul);
+    }
+
+    loadFiles();
+  </script>
+</body>
+</html>
