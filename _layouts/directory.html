@@ -4,9 +4,9 @@ layout: default
 
 <h1>Index of {{ page.dir }}</h1>
 
-<input type="text" id="search" placeholder="Search..." style="margin-bottom:10px; padding:5px; width:250px;">
+<input type="text" id="search" placeholder="Search..." style="margin-bottom:15px; padding:8px; width:300px; border-radius:5px; border:1px solid #ccc;">
 
-<table id="fileTable" border="1" cellpadding="5" cellspacing="0">
+<table id="fileTable">
   <thead>
     <tr>
       <th onclick="sortTable(0)">Name 🔽</th>
@@ -16,7 +16,6 @@ layout: default
     </tr>
   </thead>
   <tbody>
-    {%- comment -%} Alt klasörler {%- endcomment -%}
     {% assign listed = "" | split: "" %}
     {% for f in site.static_files %}
       {% if f.path contains page.dir %}
@@ -25,7 +24,7 @@ layout: default
         {% if subdir != "" and subdir != page.dir %}
           {% unless listed contains subdir %}
             {% assign listed = listed | push: subdir %}
-            <tr>
+            <tr class="dir-row">
               <td>📂 <a href="/{{ subdir }}/">{{ subdir }}/</a></td>
               <td>Directory</td>
               <td>-</td>
@@ -36,14 +35,13 @@ layout: default
       {% endif %}
     {% endfor %}
 
-    {%- comment -%} Dosyalar {%- endcomment -%}
     {% for file in site.static_files %}
       {% if file.path contains page.dir %}
-        <tr>
+        <tr class="file-row">
           <td>📄 <a href="{{ file.path }}">{{ file.name }}</a></td>
           <td>{{ file.extname | remove: "." | upcase }}</td>
           <td>
-            {% if file.modified_time %}
+            {% if file.size %}
               {{ file.size | divided_by: 1024.0 | round: 2 }} KB
             {% else %}
               -
@@ -62,8 +60,38 @@ layout: default
   </tbody>
 </table>
 
+<style>
+  #fileTable {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: sans-serif;
+  }
+  #fileTable th, #fileTable td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+  }
+  #fileTable th {
+    background-color: #f4f4f4;
+    cursor: pointer;
+  }
+  #fileTable tr:hover {
+    background-color: #f0f8ff;
+  }
+  #fileTable tr.dir-row td {
+    font-weight: bold;
+  }
+  a {
+    text-decoration: none;
+    color: #0366d6;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+</style>
+
 <script>
-  // 🔍 Search filter
+  // Search filter
   document.getElementById("search").addEventListener("keyup", function() {
     var filter = this.value.toLowerCase();
     var rows = document.querySelectorAll("#fileTable tbody tr");
@@ -72,15 +100,15 @@ layout: default
     });
   });
 
-  // 🔼🔽 Sort table
+  // Sort table
   function sortTable(n) {
     var table = document.getElementById("fileTable");
-    var rows = Array.from(table.rows).slice(1); // skip header
+    var rows = Array.from(table.rows).slice(1);
     var asc = table.getAttribute("data-sort-dir") !== "asc";
     rows.sort((a, b) => {
       var x = a.cells[n].innerText.toLowerCase();
       var y = b.cells[n].innerText.toLowerCase();
-      if (!isNaN(x) && !isNaN(y)) { return asc ? x - y : y - x; }
+      if (!isNaN(x) && !isNaN(y)) return asc ? x - y : y - x;
       return asc ? x.localeCompare(y) : y.localeCompare(x);
     });
     rows.forEach(r => table.tBodies[0].appendChild(r));
