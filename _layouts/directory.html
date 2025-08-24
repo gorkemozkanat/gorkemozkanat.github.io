@@ -3,10 +3,31 @@ layout: default
 ---
 
 <h1>Index of {{ page.dir }}</h1>
+
 <ul>
+  {%- comment -%}
+  🔹 Alt klasörleri listele
+  {%- endcomment -%}
+  {% assign listed = "" | split: "" %}
+  {% for f in site.static_files %}
+    {% if f.path contains page.dir %}
+      {% assign parts = f.path | split: "/" %}
+      {% assign subdir = parts[1] %}
+      {% if subdir != "" and subdir != page.dir %}
+        {% unless listed contains subdir %}
+          {% assign listed = listed | push: subdir %}
+          <li>[DIR] <a href="/{{ subdir }}/">{{ subdir }}/</a></li>
+        {% endunless %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+
+  {%- comment -%}
+  🔹 Dosyaları listele
+  {%- endcomment -%}
   {% for file in site.static_files %}
     {% if file.path contains page.dir %}
-      <li><a href="{{ file.path }}">{{ file.name }}</a></li>
+      <li>[FILE] <a href="{{ file.path }}">{{ file.name }}</a></li>
     {% endif %}
   {% endfor %}
 </ul>
